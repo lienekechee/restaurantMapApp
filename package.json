@@ -1,0 +1,20 @@
+{
+  "name": "restaurant_map_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "path": "^0.12.7",
+    "pg": "^7.1.2",
+    "pug": "^2.0.0-rc.3",
+    "sequelize": "^4.5.0"
+  }
+}
