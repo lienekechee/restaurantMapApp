@@ -1,5 +1,6 @@
 
 
+
 /* ----- Loading the map ------------------------------------------------------------ */
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZmN3YnIiLCJhIjoienNUYVlNZyJ9.983XCange6sobeBpnPO4Wg';
@@ -7,7 +8,7 @@ var map = new mapboxgl.Map({
     container: 'map', 							// container id
     style: 'mapbox://styles/mapbox/light-v9', 	// stylesheet location
     center: [4.8952, 52.3702], 					// starting position [lng, lat]
-    zoom: 12 									// starting zoom
+    zoom: 12									// starting zoom
 });
 
 
