@@ -69,7 +69,7 @@ var Restaurant = database.define('restaurants', {
 })
 
 var Review = database.define('posts', {
-	subject: {
+	restaurantName: {
 		type: Sequelize.STRING
 	},
 	body: {
@@ -90,7 +90,22 @@ var Rating = database.define('comments', {
 });
 
 
-//CREATING RESTAURANT TABLE FROM JSON = = ==  = 
+//GETTING RESTAURANT DATA FROM JSON
+
+const restaurantDataJSON = 'https://open.data.amsterdam.nl/EtenDrinken.json'
+const request = new XMLHttpRequest();
+
+request.open('GET', restaurantDataJSON);
+
+request.responseType = 'json';
+request.send();
+
+request.onload = function() {
+  var restaurantsJSON = request.response;
+  var restaurants = JSON.parse(restaurantsJSON)
+  
+  for(i = 0; i < restaurants.length)
+}
 
 
 
@@ -157,9 +172,21 @@ app.post('/register', (req, res) => {
 	})
 })
 
+
+
 //. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
 
+app.post('/restaurantSearch', (req, res)=>{
+	search = req.body.searchRestaurants
+	
+})
+
 //. GET REQUEST (GET RESTAURANT PROFILE INCLUDING MAP, INFO/MEDIA, RATING, REVIEWS, & CREATE REVIEW)
+
+
+
+
+
 
 //. GET REQUEST (GET MAP FOR RESTAURANT WITH LOCATION MARKED)
 
