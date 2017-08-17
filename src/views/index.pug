@@ -1,12 +1,15 @@
 doctype html	
 html
 	head
+		
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/styles.css')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		script(type='text/javascript' src='/js/script.js')
+
+
 
 	body(bgcolor='#f5eee1')
 
@@ -20,7 +23,12 @@ html
 		h1 RESTAURANT 
 		h2 MAP APP
 
+
 		#map(style='width: 1200px; height: 800px;')
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+		script.
+			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{console.log(data)})
+			$.ajax('/routeInAppJS', data)
     
 
 
