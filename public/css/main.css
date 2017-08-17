@@ -3,6 +3,7 @@
 /* ----- General -------------------------------------------------------------- */
 /* ----- Media Queries--------------------------------------------------------- */
 
+
 @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {
         display: none;
@@ -39,31 +40,43 @@ h1 h2 h3 h4 h5 h6 {
 }
 
 h1 {
-	font-family: 'PT Sans', sans-serif;
+  font-family: 'PT Sans', sans-serif;
 }
 
 h2 {
-	font-family: 'Lora', serif;
+  font-family: 'Lora', serif;
 }
 
 
 
 /* ----- Navigation --------------------------------------------------------- */
 
+.logo {
+  width: 60%;
+  diplay: inline-block;
+  float: left;
+}
+
+.logo img {
+
+}
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #f5eee1;
+  float: right;
+  width: 40%;
 }
 
 .topnav a {
+  font-family: 'PT Sans', sans-serif;
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: #151920;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .topnav a:hover {
@@ -76,6 +89,103 @@ h2 {
 }
 
 
-
-
 /* ----- Index ---------------------------------------------------------------- */
+
+.container1 {
+  display: block;
+  float: left;
+  width: 100%;
+  height: 600px;
+}
+
+#map {
+  width: 60%;
+  height: 600px;
+  display: inline-block;
+  position: left;
+}
+
+#filter {
+  width: 40%;
+  height: 600px;
+  display: inline-block;
+  position: left;
+  background-color: #ffffff;
+}
+
+#searchbar {
+  display: flex;
+  width: 30%;
+  height: 44px;
+  background-color: #fff;
+  border: 1px solid #000;
+  position: relative;
+  top: 60px;
+  margin-right: auto;
+  margin-left: auto;
+  z-index: 10;
+}
+
+#container2 {
+  z-index: 2;
+  padding-top: 40px;
+  display: block;
+  float: left;
+  width: 100%;
+  height: 400px;
+}
+
+.resto {
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #000;
+  width: 70%;
+  height: 100%;
+}
+
+.resto img {
+  display: block;
+  float: left;
+  max-width: 500px;
+  height: 100%;
+}
+
+.info {
+  display: block;
+  float: left;
+
+  padding: 10px;
+  height: 100%;
+}
+
+.category {
+  width: 100%;
+}
+
+.category-btn {
+  clear: both;
+  background-color: #d6dadd;
+  color: #151920;
+  font-family: 'PT Sans', sans-serif;
+  padding: 5px 20px;
+  border-radius: 2px;
+}
+
+.category-btn p {
+  text-align: center;
+  opacity: 0.6;
+}
+
+.description {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #000;
+  display: block;
+  float: left;
+  height: 50%;
+  width: 80%;
+}
+
+
+
+/* THE END */

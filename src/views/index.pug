@@ -4,29 +4,63 @@ html
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
-		link(rel='stylesheet', type='text/css', href='/css/styles.css')
+		link(rel='stylesheet', type='text/css', href='/css/main.css')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		
+		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
+		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
 		script(type='text/javascript' src='/js/script.js')
 
+
+	//- body
 	body(bgcolor='#f5eee1')
 
-		.topnav#myTopnav
+		.logo
+			img
+
+		.topnav
+			#myTopnav
 			a(href='#home') Home
 			a(href='#news') News
 			a(href='#contact') Contact
 			a(href='#about') About
 			a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
 
+		//- header
+		#header
 		h1 RESTAURANT 
-		h2 MAP APP
+			h2 MAP APP
 
-		#map(style='width: 1200px; height: 800px;')
-    
+		//- search bar in map 
+		#searchbar
+
+		#container1
+
+			//- map
+			#map
+
+			//- filter
+			#filter
+
+
+		#container2
+			.resto
+				img(src='https://www.scandichotels.com/imagevault/publishedmedia/qn6infvg30381stkubky/scandic-sundsvall-city-restaurant-verket-10.jpg')
+				.info
+					h3 Restaurant title
+					h4 Location
+
+					.description
+
+					.category
+						.category-btn 
+							p french
 
 
 
+		//- script
+		script(type='text/javascript' src='/js/script.js')
 
-
-  
-
-
+		
+		//- footer
