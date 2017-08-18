@@ -29,7 +29,7 @@ $.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
 		data: data,
 		url: '/getrestaurants',
 		success: function(result){
-        $("#div1").html(result);
+        console.log('data sent to server!');
     }
 
 	})
