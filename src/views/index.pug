@@ -70,7 +70,15 @@ html
 		//- scripts 
 		script.
 			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
-				console.log(data)
+					console.log(data)
+				$.ajax({
+					type: GET,
+					data: data,
+					url: '/getrestaurants',
+					success: function(result){
+        				console.log('data sent to server!');
+    				}
+				})
 			})
 
 

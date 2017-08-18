@@ -5,7 +5,7 @@ const session = require('express-session')
 const Sequelize = require('sequelize')
 const fs = require ('fs')
 
-const database = new Sequelize('restaurantMapAppDB', process.env.POSTGRES_USER, null, {
+const database = new Sequelize('restaurantmapappdb', process.env.POSTGRES_USER, null, {
 	host: 'localhost',
 	dialect: 'postgres'
 });
@@ -44,33 +44,36 @@ var User = database.define ('users', {
 	timestamps:false
 });
 
-var Restaurant = database.define('restaurants', {
-	name: {
-		type: Sequelize.STRING
-	},
-	address: {
-		type: Sequelize.STRING
-	},
-	latitude: {
-		type: Sequelize.STRING
-	},
-	longitude: {
-		type: Sequelize.STRING
-	},
-	media: {
-		type: Sequelize.STRING
-	},
-	description: {
-		type: Sequelize.STRING
-	},
-	website: {
-		type: Sequelize.STRING
-	}
-})
+// var Restaurant = database.define('restaurants', {
+// 	name: {
+// 		type: Sequelize.STRING
+// 	},
+// 	address: {
+// 		type: Sequelize.STRING
+// 	},
+// 	latitude: {
+// 		type: Sequelize.STRING
+// 	},
+// 	longitude: {
+// 		type: Sequelize.STRING
+// 	},
+// 	media: {
+// 		type: Sequelize.STRING
+// 	},
+// 	description: {
+// 		type: Sequelize.STRING
+// 	},
+// 	website: {
+// 		type: Sequelize.STRING
+// 	}
+// })
 
 var Review = database.define('posts', {
 	restaurantName: {
 		type: Sequelize.STRING
+	},
+	restaurantId: {
+		type: Sequelize.STRING //TRCID
 	},
 	body: {
 		type: Sequelize.TEXT
@@ -81,8 +84,14 @@ var Review = database.define('posts', {
 }); 
 
 var Rating = database.define('comments', {
-	content: {
-		type: Sequelize.TEXT
+	restaurantName: {
+		type: Sequelize.STRING
+	},
+	restaurantId: {
+		type: Sequelize.STRING //TRCID
+	},
+	rating: {
+		type: Sequelize.STRING //?
 	}
 },{
 	timestamps:false
@@ -93,6 +102,11 @@ var Rating = database.define('comments', {
 // database.sync
 
 //RELATIONSHIPS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+User.hasMany(Review);
+Review.belongsTo(User);
+
+
 
 //ROUTES++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -139,7 +153,7 @@ app.get('/profile', (req, res) => {
     var user = req.session.user
 
 	if (user) {
-		Post.findAll({
+		Review.findAll({
 			where: {
 			    userId: req.session.user.id
 			},
@@ -179,7 +193,11 @@ app.post('/register', (req, res) => {
 	})
 })
 
+//. GET REQUEST (NAVIGATE TO FEED)
 
+app.get('/feed', (req, res)=>{
+	res.render ('feed')
+})
 
 //. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
 // here we get the restaurant data from the ajax request.
@@ -200,6 +218,7 @@ app.post('/getrestaurants', (req, res)=>{
 		if (search.toLowerCase() === data[i].title.toLowerCase()){
 			console.log(data[i])
 
+			res.render('feed', {restaurant: data[i]}) //pass on result of specific restaurant to feed page.
 		}
 
 		
@@ -209,12 +228,36 @@ app.post('/getrestaurants', (req, res)=>{
 	
 })
 
+//. POST REQUEST - POST INFO FROM LINK CLICKED POINTING TO SPECIFIC RESTAURANT; PASS ON RESULT
+//  get properties of data[i] from '/getRestaurant' post request.
+//  redirect to '/restaurant/:restaurantId' and pass on info
+
+app.post('/getRestaurantFromLink', (req, res)=>{
+	const user = req.session.user
+	const data = req.query.data
+
+	Review.findAll({
+		where: {
+			restaurantName: restaurant.title
+		}
+	}).then(reviews => {
+		res.redirect (`/restaurant/${restaurant.id}`)
+	})
+	
+
+
+})
+
 //. GET REQUEST (GET RESTAURANT PROFILE INCLUDING MAP, INFO/MEDIA, RATING, REVIEWS, & CREATE REVIEW)
 
 
 app.get('/restaurant/:restaurantId', (req, res) => {
-	data = req.query.data
-	restaurantId = data.trcid
+	const data = req.query.data
+	const restaurantId = data.trcid
+
+	//
+
+
 
 })
 
