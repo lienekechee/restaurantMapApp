@@ -99,7 +99,7 @@ var Rating = database.define('comments', {
 });
 
 
-// database.sync
+database.sync() //{force: true}
 
 //RELATIONSHIPS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
