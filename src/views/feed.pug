@@ -39,7 +39,7 @@ html
 
 			each result in results
 				h2
-				  form(method ="POST" action = '/getRestaurantFromLink' id = 'restaurantLink')
+					form(method ="POST" action = '/getRestaurantFromLink' id = 'restaurantLink')
 					input(type="hidden" name="restaurantLink" value=`${result.title}`)
 					a(href=`/restaurant/${result.title}` onclick="document.getElementById('restaurantLink').submit()") #{result.title}
 
