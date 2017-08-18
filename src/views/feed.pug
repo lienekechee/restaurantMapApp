@@ -29,34 +29,52 @@ html
 			a(href='#register') Register
 			a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
 
-		//- header
-		#header
-		h1 
-			h2 
 
 		//- search bar in map 
 		#searchbar
+			form.search(method="post" action='getRestaurant')
+				input.searchTerm(name="searchrestaurants" placeholder='Enter your search term...')
+				button.searchButton(type='submit')
+				
+		#container1
 
-		
-		//- don't know yet
-		#container3
+			each result in results
+				h2
+				  form(method ="POST" action = '/getRestaurantFromLink' id = 'restaurantLink')
+					input(type="hidden" name="restaurantLink" value=`${result.title}`)
+					a(href=`/restaurant/${result.title}` onclick="document.getElementById('restaurantLink').submit()") #{result.title}
+
+					#resultimg
+				
+				//- p result by #{post.user.username}
+				//- p #{post.body}
+				//- form(action= '/comment', method= 'POST', id= "commentForm")
+				//- 	input(type="text" name="comment" placeholder= "Comment on this post" id="comment")
+				//- 	input(type="hidden" name="commentPostId" value=`${post.id}`)
+				//- 	input(type="submit" value= "post")
+
 			
 		//- script link
 		script(type='text/javascript' src='/js/script.js')
 		
-		//- scripts 
 		script.
-			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
-			console.log(data)
-				$.ajax({
-					type: GET,
-					data: data,
-					url: '/getrestaurants',
-					success: function(result){
-					console.log('data sent to server!');
-					}
-				})
-			})
+			$('#resultimg').html(img src='#{result.media[0].url}')
+
+
+
+		//- scripts 
+		//- script.
+		//- 	$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
+		//- 	console.log(data)
+		//- 		$.ajax({
+		//- 			type: GET,
+		//- 			data: data,
+		//- 			url: '/getrestaurants',
+		//- 			success: function(result){
+		//- 			console.log('data sent to server!');
+		//- 			}
+		//- 		})
+		//- 	})
 
 
 

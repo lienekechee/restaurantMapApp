@@ -138,10 +138,12 @@ input#password {
   background-color: #ffffff;
 }
 
+/*searchbar*/
+
 #searchbar {
   display: flex;
-  width: 30%;
-  height: 44px;
+  width: 60%;
+  height: 60px;
   background-color: #fff;
   border: 1px solid #000;
   position: relative;
@@ -149,6 +151,47 @@ input#password {
   margin-right: auto;
   margin-left: auto;
   z-index: 10;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-family: 'FontAwesome';
+    content: '\f002';
+    background: $color;
+    text-align: center;
+    color: $iconColor;
+    border-radius: 5px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-smooth: always;
+  }
+}
+
+.searchTerm {
+  width: 100%;
+  border: 2px solid #000;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.searchButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background-color: red;
+  opacity: 0;
+  cursor: pointer;
 }
 
 #container2 {

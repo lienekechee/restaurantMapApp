@@ -257,8 +257,6 @@ app.get('/restaurant/:restaurantId', (req, res) => {
 
 	//
 
-
-
 })
 
 
