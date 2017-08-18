@@ -1,0 +1,67 @@
+doctype html	
+html
+
+	head
+		
+		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+		link(rel='stylesheet', type='text/css', href='/css/reset.css')
+		link(rel='stylesheet', type='text/css', href='/css/main.css')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		
+		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
+		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+		script(type='text/javascript' src='/js/script.js')
+
+		link(rel='stylesheet' href='bower_components/css-star-rating/dist/css/star-rating.css')
+
+
+	//- body
+	
+	//- gerrit
+
+	body(bgcolor='#f5eee1')
+
+		//- navigation
+		.logo
+			img
+
+		.topnav
+			#myTopnav
+			//- a(href='#home') Home
+			//- a(href='#news') News
+			//- a(href='#contact') Contact
+			//- a(href='#register') Register
+			//- a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
+
+		//- header
+		#header
+			
+		#map
+
+		#container1
+			h1 Something
+				h2 Something
+
+		for each restaurant in restaurants
+		#container2
+			.resto 
+				img
+				.info
+					h2 #{restaurant.title}
+					p #{restaurant.description}
+					#rating 
+						value-3 
+							space-between
+								#star-container
+
+					
+
+
+		//- script link
+		script(type='text/javascript' src='/js/script.js')
+		
+		//- scripts 
+
+		//- footer
