@@ -3,11 +3,11 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const session = require('express-session')
 const Sequelize = require('sequelize')
-const fs = require ('fs')
+const fs = require('fs')
 
 const database = new Sequelize('restaurantmapappdb', process.env.POSTGRES_USER, null, {
-	host: 'localhost',
-	dialect: 'postgres'
+    host: 'localhost',
+    dialect: 'postgres'
 });
 
 const app = express()
@@ -17,31 +17,31 @@ app.set('view engine', 'pug')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
-	console.log (__dirname)
+console.log(__dirname)
 
 app.use(session({
-  secret: "Your secret key",
-  resave: true,
-saveUninitialized: false
+    secret: "Your secret key",
+    resave: true,
+    saveUninitialized: false
 }))
 
 //DEFINITION OF TABLES++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-var User = database.define ('users', {
-	username: {
-		type: Sequelize.STRING,
-		unique: true,
+var User = database.define('users', {
+    username: {
+        type: Sequelize.STRING,
+        unique: true,
 
-	},
-	email: {
-		type: Sequelize.STRING,
-		unique: true
-	},
-	password: {
-		type: Sequelize.STRING,
-	}
-},{
-	timestamps:false
+    },
+    email: {
+        type: Sequelize.STRING,
+        unique: true
+    },
+    password: {
+        type: Sequelize.STRING,
+    }
+}, {
+    timestamps: false
 });
 
 // var Restaurant = database.define('restaurants', {
@@ -67,39 +67,41 @@ var User = database.define ('users', {
 // 		type: Sequelize.STRING
 // 	}
 // })
-
 var Review = database.define('posts', {
-	restaurantName: {
-		type: Sequelize.STRING
-	},
-	restaurantId: {
-		type: Sequelize.STRING //TRCID
-	},
-	body: {
-		type: Sequelize.TEXT
-	}
-	},{
-	timestamps:false
+    restaurantName: {
+        type: Sequelize.STRING
+    },
+    restaurantId: {
+        type: Sequelize.STRING //TRCID
+    },
+    body: {
+        type: Sequelize.TEXT
+    }
+}, {
+    timestamps: false
 
-}); 
+});
 
 var Rating = database.define('comments', {
-	restaurantName: {
-		type: Sequelize.STRING
-	},
-	restaurantId: {
-		type: Sequelize.STRING //TRCID
-	},
-	rating: {
-		type: Sequelize.STRING //?
-	}
-},{
-	timestamps:false
+    restaurantName: {
+        type: Sequelize.STRING
+    },
+    restaurantId: {
+        type: Sequelize.STRING //TRCID
+    },
+    rating: {
+        type: Sequelize.STRING //?
+    }
+}, {
+    timestamps: false
 
 });
 
 
 database.sync() //{force: true}
+
+
+    
 
 //RELATIONSHIPS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -112,91 +114,119 @@ Review.belongsTo(User);
 
 //1. GET REQUEST (INDEX & LOGIN FORM)
 
-app.get('/', function (req, res){
-	res.render ('index', {
-		message: req.query.message,
-		user: req.session.user
-	})
+app.get('/', (req, res) =>{
+
+fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+        if (err) {
+            throw err;
+        }
+        // console.log (data)
+       var restaurants = JSON.parse(data)
+       console.log(restaurants)
+
+       res.render('index', {
+		        message: req.query.message,
+		        user: req.session.user
+		})
+    })
 });
 
 //2. POST REQUEST (LOGIN)
 
-app.post('/login',(req, res) => {
+app.post('/login', (req, res) => {
 
-	var email = req.body.email
-	var password = req.body.password
+    var email = req.body.email
+    var password = req.body.password
 
-	User.findOne({
-		where: {
-			email: email
-		}
-	})
-	.then(user => {
-		if (user !== null && password === user.password) {
-			req.session.user = user;
-			res.redirect('/profile');
-		} else {
-			res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-		}
-	})
-	.catch(error => {
-		console.error(error)
-		res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-	})
+    User.findOne({
+            where: {
+                email: email
+            }
+        })
+        .then(user => {
+            if (user !== null && password === user.password) {
+                req.session.user = user;
+                res.redirect('/profile');
+            } else {
+                res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+            }
+        })
+        .catch(error => {
+            console.error(error)
+            res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+        })
 
 })
 
 //3. GET REQUEST (GET PROFILE)
 
 app.get('/profile', (req, res) => {
-    
-    var user = req.session.user
 
-	if (user) {
-		Review.findAll({
-			where: {
-			    userId: req.session.user.id
-			},
-			order:[
-				['id', 'DESC']
-			],
-		})
-		.then(reviews => {
-			res.render('profile', {
-				user:user, 
-				reveiws: reviews
-			})
-		})
-	} else{
-		res.redirect('/?message='+ encodeURIComponent("Please log in!"));
-	}
-	
+	var user = req.session.user
+
+	fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+        if (err) {
+            throw err;
+        }
+
+        var restaurants = JSON.parse(data)
+   
+	    if (user) {
+	        Review.findAll({
+	                where: {
+	                    userId: req.session.user.id
+	                },
+	                order: [
+	                    ['id', 'DESC']
+	                ],
+	            })
+	            .then(reviews => {
+	                res.render('profile', {
+	                    user: user,
+	                    reviews: reviews
+	                })
+	            })
+	    } else {
+	        res.redirect('/?message=' + encodeURIComponent("Please log in!"));
+	    }
+	})
 });
 
 //. GET REQUEST (REGISTER FORM)
 
 app.get('/registerform', (req, res) => {
-	res.render ('register')
+    res.render('register')
 })
 
 //. POST REQUEST (CREATE PROFILE INCLUDING SEARCH FUNCTION, OWN REVIEWS, PERSONAL INFO, LOCATION?)
 
 app.post('/register', (req, res) => {
-	
-	User.create({
-		username: req.body.usernameNew,
-		email: req.body.emailNew,
-		password: req.body.passwordNew
-	})
-	.then(function(){
-		res.redirect('/')
-	})
+
+    User.create({
+            username: req.body.usernameNew,
+            email: req.body.emailNew,
+            password: req.body.passwordNew
+        })
+        .then(function() {
+            res.redirect('/')
+        })
 })
 
 //. GET REQUEST (NAVIGATE TO FEED)
 
-app.get('/feed', (req, res)=>{
-	res.render ('feed')
+app.get('/feed', (req, res) => {
+
+	fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+        if (err) {
+            throw err;
+        }
+
+        var restaurants = JSON.parse(data)
+      
+    	res.render('feed', {
+    		restaurants: restaurants
+    	})
+    })
 })
 
 //. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
@@ -204,47 +234,61 @@ app.get('/feed', (req, res)=>{
 // then we iterate through the data set to find a match between data[i].title
 // and req.body.search
 
-app.post('/getrestaurants', (req, res)=>{
-	const search = req.body.searchRestaurants
-		console.log(search)
-	const data = req.query.data 
-		console.log(data)
-	const user = req.session.user
-
-
-	const matchingRestaurants = []
-
-	for(i=0; i < data.length; i++){
-		if (search.toLowerCase() === data[i].title.toLowerCase()){
-			console.log(data[i])
-
-			res.render('feed', {restaurant: data[i]}) //pass on result of specific restaurant to feed page.
-		}
-
-		
-	}
-
-
+app.post('/getrestaurants', (req, res) => {
 	
+	const user = req.session.user
+	const search = req.body.searchrestaurants
+		console.log(search)
+	
+	fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+        if (err) {
+            throw err;
+        }
+
+        var restaurants = JSON.parse(data)
+
+        var results = []
+
+        for (i = 0; i < data.length; i++) {
+
+        	if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
+            console.log(restaurants[i])
+
+            results.push(restaurants[i])
+
+             //pass on result of specific restaurant to feed page.
+        	}
+    	}
+    	res.render('feed', { results: results })
+    })
 })
 
 //. POST REQUEST - POST INFO FROM LINK CLICKED POINTING TO SPECIFIC RESTAURANT; PASS ON RESULT
 //  get properties of data[i] from '/getRestaurant' post request.
 //  redirect to '/restaurant/:restaurantId' and pass on info
 
-app.post('/getRestaurantFromLink', (req, res)=>{
-	const user = req.session.user
-	const data = req.query.data
+app.post('/getRestaurantFromLink', (req, res) => {
+    
+    const user = req.session.user
 
-	Review.findAll({
-		where: {
-			restaurantName: restaurant.title
-		}
-	}).then(reviews => {
-		res.redirect (`/restaurant/${restaurant.id}`)
-	})
-	
+    fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+        if (err) {
+            throw err;
+        }
 
+        var restaurants = JSON.parse(data)
+
+
+    Review.findAll({
+        where: {
+            restaurantName: restaurant.title
+        }
+
+    }).then(reviews => {
+        res.redirect(`/restaurant/${restaurant.id}`)
+    })
+
+})
 
 })
 
@@ -252,10 +296,10 @@ app.post('/getRestaurantFromLink', (req, res)=>{
 
 
 app.get('/restaurant/:restaurantId', (req, res) => {
-	const data = req.query.data
-	const restaurantId = data.trcid
+    const data = req.query.data
+    const restaurantId = data.trcid
 
-	//
+    //
 
 })
 
@@ -274,21 +318,14 @@ app.get('/restaurant/:restaurantId', (req, res) => {
 //. GET REQUEST (LOG OUT)
 
 app.get('/logout', (req, res) => {
-	req.session.destroy(error => {
-		if(error) {
-			throw error;
-		}
-		res.redirect('/?message=' + encodeURIComponent("Successfully logged out."));
-	})
+    req.session.destroy(error => {
+        if (error) {
+            throw error;
+        }
+        res.redirect('/?message=' + encodeURIComponent("Successfully logged out."));
+    })
 });
 
-app.listen(3000, function(){
-	console.log("Listening on port 3000")
+app.listen(3000, function() {
+    console.log("Listening on port 3000")
 })
-
-
-
-
-
-
-

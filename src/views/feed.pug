@@ -11,7 +11,6 @@ html
 		
 		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
 		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
-		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
 		script(type='text/javascript' src='/js/script.js')
 
 
@@ -53,30 +52,18 @@ html
 				//- 	input(type="hidden" name="commentPostId" value=`${post.id}`)
 				//- 	input(type="submit" value= "post")
 
-			
+
+		#container3
+			p #{restaurants[0].title}
+
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+		
+		//- don't know yet
+		
 		//- script link
 		script(type='text/javascript' src='/js/script.js')
 		
-		script.
-			$('#resultimg').html(img src='#{result.media[0].url}')
-
-
-
 		//- scripts 
-		//- script.
-		//- 	$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
-		//- 	console.log(data)
-		//- 		$.ajax({
-		//- 			type: GET,
-		//- 			data: data,
-		//- 			url: '/getrestaurants',
-		//- 			success: function(result){
-		//- 			console.log('data sent to server!');
-		//- 			}
-		//- 		})
-		//- 	})
-
-
-
+	
 
 		//- footer
