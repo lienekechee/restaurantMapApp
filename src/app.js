@@ -234,7 +234,7 @@ app.get('/feed', (req, res) => {
 // then we iterate through the data set to find a match between data[i].title
 // and req.body.search
 
-app.post('/getrestaurants', (req, res) => {
+app.post('/findrestaurants', (req, res) => {
 	
 	const user = req.session.user
 	const search = req.body.searchrestaurants
@@ -258,9 +258,18 @@ app.post('/getrestaurants', (req, res) => {
 
              //pass on result of specific restaurant to feed page.
         	}
-    	}
-    	res.render('feed', { results: results })
+    	}.then(results=>{
+    		res.redirect('/getrestaurants')
+    	})
+    	
     })
+})
+
+//	GET REQUEST (GET RESTAURANT DATA)
+
+app.get('/getrestaurants', (req, res) =>{
+	
+	res.send({result:results})
 })
 
 //. POST REQUEST - POST INFO FROM LINK CLICKED POINTING TO SPECIFIC RESTAURANT; PASS ON RESULT
