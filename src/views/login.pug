@@ -1,0 +1,42 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+		script(type='text/javascript' src='/js/jquery.js')
+		link(rel='stylesheet', href='/css/reset.css')
+		link(rel='stylesheet', href='/css/styles.css')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+		script.
+			$(document).ready(function () {
+				$('#submit').click(function(event) {
+					if($('#email').val().trim().length === 0 || $('#password').val().trim().length === 0) {
+						event.preventDefault();
+						$('#error-message').html("Your username or password is empty.");
+					}
+				});
+			});
+
+	body(bgcolor="#f85a51")
+
+		#form
+			h2 Login
+
+			form(name='loginform', action='/login', method='POST')
+				input#name(type='text', name='email', placeholder='Email...', required) 
+				input#name(type='password', name='password', placeholder='Password...', required)
+				input(type='submit', value='login')
+
+				button.button(href='register') Or register?
+
+		h2#error-message= message
+
+		//- script link
+		script(type='text/javascript' src='/js/jquery.js')
+
+		//- scripts 
+		script.
+			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
+				console.log(data)
+			})

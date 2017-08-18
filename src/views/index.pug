@@ -1,5 +1,6 @@
 doctype html	
 html
+
 	head
 		
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
@@ -15,6 +16,9 @@ html
 
 
 	//- body
+	
+	//- gerrit
+
 	body(bgcolor='#f5eee1')
 
 		.logo
@@ -25,24 +29,24 @@ html
 			a(href='#home') Home
 			a(href='#news') News
 			a(href='#contact') Contact
-			a(href='#about') About
+			a(href='#register') Register
 			a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
 
 		//- header
 		#header
-		h1 RESTAURANT 
-			h2 MAP APP
+		h1 
+			h2 
 
 		//- search bar in map 
 		#searchbar
 
 		#container1
 
-		//- map
-		#map(style='width: 1200px; height: 800px;')
+			//- map
+			#map
 
-		//- filter
-		#filter
+			//- filter
+			#filter
 
 
 		#container2
@@ -58,8 +62,17 @@ html
 						.category-btn 
 							p french
 
-		//- script
-		script(type='text/javascript' src='/js/script.js')
+		#container3
 
+		//- script link
+		script(type='text/javascript' src='/js/script.js')
 		
+		//- scripts 
+		script.
+			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
+				console.log(data)
+			})
+
+
+
 		//- footer

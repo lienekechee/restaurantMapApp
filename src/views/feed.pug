@@ -1,0 +1,55 @@
+doctype html	
+html
+
+	head
+		
+		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+		link(rel='stylesheet', type='text/css', href='/css/reset.css')
+		link(rel='stylesheet', type='text/css', href='/css/main.css')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		
+		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
+		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
+		script(type='text/javascript' src='/js/script.js')
+
+
+	//- body
+	body(bgcolor='#f5eee1')
+
+		.logo
+			img
+
+		.topnav
+			#myTopnav
+			a(href='#home') Home
+			a(href='#news') News
+			a(href='#contact') Contact
+			a(href='#register') Register
+			a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
+
+		//- header
+		#header
+		h1 
+			h2 
+
+		//- search bar in map 
+		#searchbar
+
+		
+		//- don't know yet
+		#container3
+
+		//- script link
+		script(type='text/javascript' src='/js/script.js')
+		
+		//- scripts 
+		script.
+			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
+				console.log(data)
+			})
+
+
+
+		//- footer
