@@ -90,7 +90,7 @@ var Rating = database.define('comments', {
 });
 
 
-
+// database.sync
 
 //RELATIONSHIPS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -134,6 +134,30 @@ app.post('/login',(req, res) => {
 
 //3. GET REQUEST (GET PROFILE)
 
+app.get('/profile', (req, res) => {
+    
+    var user = req.session.user
+
+	if (user) {
+		Post.findAll({
+			where: {
+			    userId: req.session.user.id
+			},
+			order:[
+				['id', 'DESC']
+			],
+		})
+		.then(reviews => {
+			res.render('profile', {
+				user:user, 
+				reveiws: reviews
+			})
+		})
+	} else{
+		res.redirect('/?message='+ encodeURIComponent("Please log in!"));
+	}
+	
+});
 
 //. GET REQUEST (REGISTER FORM)
 
@@ -158,16 +182,41 @@ app.post('/register', (req, res) => {
 
 
 //. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
+// here we get the restaurant data from the ajax request.
+// then we iterate through the data set to find a match between data[i].title
+// and req.body.search
 
-app.post('/restaurantSearch', (req, res)=>{
-	search = req.body.searchRestaurants
+app.post('/getrestaurants', (req, res)=>{
+	const search = req.body.searchRestaurants
+		console.log(search)
+	const data = req.query.data 
+		console.log(data)
+	const user = req.session.user
+
+
+	const matchingRestaurants = []
+
+	for(i=0; i < data.length; i++){
+		if (search.toLowerCase() === data[i].title.toLowerCase()){
+			console.log(data[i])
+
+		}
+
+		
+	}
+
+
 	
 })
 
 //. GET REQUEST (GET RESTAURANT PROFILE INCLUDING MAP, INFO/MEDIA, RATING, REVIEWS, & CREATE REVIEW)
 
 
+app.get('/restaurant/:restaurantId', (req, res) => {
+	data = req.query.data
+	restaurantId = data.trcid
 
+})
 
 
 
@@ -177,9 +226,20 @@ app.post('/restaurantSearch', (req, res)=>{
 
 //. POST REQUEST (CREATE A REVIEW)
 
+
+
 //. POST REQUEST (GIVE A RATING)
 
 //. GET REQUEST (LOG OUT)
+
+app.get('/logout', (req, res) => {
+	req.session.destroy(error => {
+		if(error) {
+			throw error;
+		}
+		res.redirect('/?message=' + encodeURIComponent("Successfully logged out."));
+	})
+});
 
 app.listen(3000, function(){
 	console.log("Listening on port 3000")
