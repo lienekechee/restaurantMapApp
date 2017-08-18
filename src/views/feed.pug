@@ -29,41 +29,54 @@ html
 			a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
 
 
-		//- search bar in map 
+		//- search bar in map  
 		#searchbar
-			form.search(method="post" action='getRestaurant')
-				input.searchTerm(name="searchrestaurants" placeholder='Enter your search term...')
+			form.search(method='post' action='/findrestaurants')
+				input.searchTerm(name='searchrestaurants' placeholder='Enter your search term...')
 				button.searchButton(type='submit')
 				
 		#container1
 
-			each result in results
-				h2
-					form(method ="POST" action = '/getRestaurantFromLink' id = 'restaurantLink')
-					input(type="hidden" name="restaurantLink" value=`${result.title}`)
-					a(href=`/restaurant/${result.title}` onclick="document.getElementById('restaurantLink').submit()") #{result.title}
+			if results
+				each result in results
+					h2
+						form(method ='POST' action = '/getRestaurantFromLink' id = 'restaurantLink')
+						input(type='hidden' name='restaurantLink' value=`${result.title}`)
+						a(href=`/restaurant/${result.title}` onclick='document.getElementById('restaurantLink').submit()') #{result.title}
 
-					#resultimg
-				
+						#resultimg
+					
+			else 
+				p go searching
 				//- p result by #{post.user.username}
 				//- p #{post.body}
-				//- form(action= '/comment', method= 'POST', id= "commentForm")
-				//- 	input(type="text" name="comment" placeholder= "Comment on this post" id="comment")
-				//- 	input(type="hidden" name="commentPostId" value=`${post.id}`)
-				//- 	input(type="submit" value= "post")
+				//- form(action= '/comment', method= 'POST', id= 'commentForm')
+				//- 	input(type='text' name='comment' placeholder= 'Comment on this post' id='comment')
+				//- 	input(type='hidden' name='commentPostId' value=`${post.id}`)
+				//- 	input(type='submit' value= 'post')
 
 
 		#container3
 			p #{restaurants[0].title}
 
 		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
-		
-		//- don't know yet
-		
-		//- script link
 		script(type='text/javascript' src='/js/script.js')
 		
 		//- scripts 
+		script.
+			$(document).ready(function(){
+				$('.searchButton').on('click', function(){
+
+					$.get('/getrestaurants', function(res){
+					
+					$('#resultimg')
+						.html('<img src=' + res.results.media.url + '>')
+						//- console.log(response)
+						//- console.log(response.allCats[0]);
+						//- console.log(response.allCats[index]);
+					})
+				})		
+			});	
 	
 
 		//- footer
