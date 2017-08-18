@@ -5,7 +5,7 @@ const session = require('express-session')
 const Sequelize = require('sequelize')
 const fs = require ('fs')
 
-const database = new Sequelize('restaurantMapAppDB', process.env.POSTGRES_USER, null, {
+const database = new Sequelize('restaurantmapappdb', process.env.POSTGRES_USER, null, {
 	host: 'localhost',
 	dialect: 'postgres'
 });

@@ -17,16 +17,28 @@ html
 
 	//- body
 	body(bgcolor="#f5eee1")
+		
+		//- navigation
+		.logo
+			img
+
+		.topnav
+			#myTopnav
+
+		#header
+			h1 Something
+				h2 Something
+
+		//- Register
 		#form
+			h2 Register
 
-			h2 Login
+			form(name='form', action='/registerform', method='POST')
+				input#name(type='text', name='usernameNew', placeholder='Username...', required) 
+				input#email(type='email', name='emailNew', placeholder='Email...', required)
+				input#password(type='text', name='passwordNew', placeholder='Password...', required)
 
-			form(name='loginform', action='/login', method='POST')
-				input#name(type='text', name='usernameNew', placeholder='Email...', required) 
-				input#email(type='email', name='emailNew', placeholder='Password...', required)
-				input#password(type='password', name='emailNew', placeholder='Password...', required)
-
-				input(type='submit', value='login')
+				input(type='submit', value='register')
 
 				button.button(href='register') Or Login?
 
