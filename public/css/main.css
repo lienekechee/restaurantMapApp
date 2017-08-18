@@ -55,10 +55,10 @@ h2 {
   width: 60%;
   diplay: inline-block;
   float: left;
+  height: 46px;
 }
 
 .logo img {
-
 }
 
 .topnav {
@@ -92,17 +92,36 @@ h2 {
 /* ----- Index ---------------------------------------------------------------- */
 
 
-#heaeder h1 {
-  margin-left: 100px;
-  margin-bottom: -50px;
+#header {
+  clear: both;
+  display: flex;
+  text-align: center;
 }
 
-.container1 {
+#container1 {
   display: block;
   float: left;
   width: 100%;
   height: 600px;
 }
+
+#form {
+    width: 100%;
+}
+
+form {
+    margin: 20px;
+    height: 40%;
+}
+
+input#email {
+    margin: 5px;
+}
+
+input#password {
+    margin: 5px;
+}
+
 
 #map {
   width: 60%;
@@ -163,8 +182,6 @@ h2 {
   padding: 10px;
   height: 100%;
 }
-
-
 
 .category {
   width: 100%;
