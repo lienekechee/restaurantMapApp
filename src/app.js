@@ -90,23 +90,6 @@ var Rating = database.define('comments', {
 });
 
 
-//GETTING RESTAURANT DATA FROM JSON
-
-const restaurantDataJSON = 'https://open.data.amsterdam.nl/EtenDrinken.json'
-const request = new XMLHttpRequest();
-
-request.open('GET', restaurantDataJSON);
-
-request.responseType = 'json';
-request.send();
-
-request.onload = function() {
-  var restaurantsJSON = request.response;
-  var restaurants = JSON.parse(restaurantsJSON)
-  
-  for(i = 0; i < restaurants.length)
-}
-
 
 
 //RELATIONSHIPS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

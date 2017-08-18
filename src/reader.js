@@ -27,6 +27,8 @@ $.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
 
 })
 
+$.ajax()
+
 //GET:
 data[i].title //name of restaurant
 data[i].location.adress
