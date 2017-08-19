@@ -8,7 +8,7 @@ html
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
 		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
 		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
 		script(type='text/javascript' src='/js/script.js')
@@ -32,51 +32,37 @@ html
 		//- search bar in map  
 		#searchbar
 			form.search(method='post' action='/findrestaurants')
-				input.searchTerm(name='searchrestaurants' placeholder='Enter your search term...')
+				input.searchTerm(id = 'searchrestaurants' name='searchrestaurants' placeholder='Enter your search term...')
 				button.searchButton(type='submit')
-				
-		#container1
-
-			if results
-				each result in results
-					h2
-						form(method ='POST' action = '/getRestaurantFromLink' id = 'restaurantLink')
-						input(type='hidden' name='restaurantLink' value=`${result.title}`)
-						a(href=`/restaurant/${result.title}` onclick='document.getElementById('restaurantLink').submit()') #{result.title}
-
-						#resultimg
-					
-			else 
-				p go searching
-				//- p result by #{post.user.username}
-				//- p #{post.body}
-				//- form(action= '/comment', method= 'POST', id= 'commentForm')
-				//- 	input(type='text' name='comment' placeholder= 'Comment on this post' id='comment')
-				//- 	input(type='hidden' name='commentPostId' value=`${post.id}`)
-				//- 	input(type='submit' value= 'post')
-
 
 		#container3
-			p #{restaurants[0].title}
+			script.
+				$(document).ready(function(){
+					$("#searchrestaurants").keyup(function(){
 
-		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
-		script(type='text/javascript' src='/js/script.js')
-		
-		//- scripts 
-		script.
-			$(document).ready(function(){
-				$('.searchButton').on('click', function(){
+						var searchrestaurants = {searchrestaurants: $("#searchrestaurants").val()};
 
-					$.get('/getrestaurants', function(res){
+						console.log (searchrestaurants)
+						
+				
+
+						$.get("/getrestaurants", searchrestaurants, function(response){
+							var match = response.matchingRestaurants;
+							
+							$("#container3").html("<ul/>");
+								for(var i=0; i<match.length; i++) {
+									$("ul").append(
+									"<li><form method =\"POST\" action = '/restaurantViaLink' id = 'restaurantLink'><input type=\"hidden\" name=\"restaurantLink\" value=`${match[i].trcid}`><a href=`/restaurant/${match[i].trcid}` onclick=\"document.getElementById('restaurantLink').submit()\">"+ match[i].title + ": " + match[i].details.en.shortdescription + "<img src=\"" + match[i].media[0].url + "\"/></li><br>")
+								}
+						});
 					
-					$('#resultimg')
-						.html('<img src=' + res.results.media.url + '>')
-						//- console.log(response)
-						//- console.log(response.allCats[0]);
-						//- console.log(response.allCats[index]);
-					})
-				})		
-			});	
-	
+		//- <form method ="POST" action = '/restaurantViaLink' id = 'restaurantLink'>
+  //-           <input type="hidden" name="postLink" value=`${match[i].trcid}`>
+  //-           <a href=`/restaurant/${match[i].trcid}` onclick="document.getElementById('postLink').submit()"> #{post.subject}
+						
+							//- setTimeout(ajaxCall, 300)
+					});
+				});
 
-		//- footer
+
+		
