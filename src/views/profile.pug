@@ -13,43 +13,41 @@ html
 		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
 		script(type='text/javascript' src='/js/script.js')
 
-	body
+	body(bgcolor="#f5eee1")
 		#nav
 			if user
 				#myTopnav(class='topnav')
-					a(href='index') Home
-					a(href='#') Profile
-					a(href='/newpost') New Post
-					a(href='allposts') All Posts
-					a(href='logout') Logout
 					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
-			
+					a(href='logout') Logout
+					a(href='search') Search
+					a(href='#') Profile
+					a(href='logout') Home
+					a(href='logo' style: ) ø
+					
 			else
 				#myTopnav(class='topnav')
-					a(href='index') Home
-					a(href='#') Profile
-					a(href='/newpost') New Post
-					a(href='register') Register
 					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
+					a(href='register') Login
+					a(href='search') Search
+					a(href='#') Profile
+					a(href='register') Home
+					
+		#container-profile
+			#profile
+				h2 Hi #{user.name}, this is your profile.
 
-		#profile
-			h2 Hi #{user.name}, this is your profile.
-			h3 your profile name:
-			#profile-list
-				p #{user.name}
-			h3 your email:
-			#profile-list 
-				p #{user.email}
-			h3 your password:
-			#profile-list 
-				p #{user.password}
+				h3 your profile name:
+				#profile-list
+					p #{user.name}
+				h3 your email:
+				#profile-list 
+					p #{user.email}
+				h3 your password:
+				#profile-list 
+					p #{user.password}
 
 
 		//- script link
 		script(type='text/javascript' src='/js/jquery.js')
 
 		//- scripts 
-		script.
-			$.getJSON('https://open.data.amsterdam.nl/EtenDrinken.json', (data)=>{
-				console.log(data)
-			})
