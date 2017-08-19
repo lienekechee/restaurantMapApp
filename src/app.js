@@ -4,6 +4,8 @@ const path = require('path')
 const session = require('express-session')
 const Sequelize = require('sequelize')
 const fs = require('fs')
+var Promise = require('bluebird');
+Promise.promisifyAll(fs);
 
 const database = new Sequelize('restaurantmapappdb', process.env.POSTGRES_USER, null, {
     host: 'localhost',
@@ -45,27 +47,27 @@ var User = database.define('users', {
 });
 
 // var Restaurant = database.define('restaurants', {
-// 	name: {
-// 		type: Sequelize.STRING
-// 	},
-// 	address: {
-// 		type: Sequelize.STRING
-// 	},
-// 	latitude: {
-// 		type: Sequelize.STRING
-// 	},
-// 	longitude: {
-// 		type: Sequelize.STRING
-// 	},
-// 	media: {
-// 		type: Sequelize.STRING
-// 	},
-// 	description: {
-// 		type: Sequelize.STRING
-// 	},
-// 	website: {
-// 		type: Sequelize.STRING
-// 	}
+//  name: {
+//      type: Sequelize.STRING
+//  },
+//  address: {
+//      type: Sequelize.STRING
+//  },
+//  latitude: {
+//      type: Sequelize.STRING
+//  },
+//  longitude: {
+//      type: Sequelize.STRING
+//  },
+//  media: {
+//      type: Sequelize.STRING
+//  },
+//  description: {
+//      type: Sequelize.STRING
+//  },
+//  website: {
+//      type: Sequelize.STRING
+//  }
 // })
 var Review = database.define('posts', {
     restaurantName: {
@@ -101,7 +103,7 @@ var Rating = database.define('comments', {
 database.sync() //{force: true}
 
 
-    
+
 
 //RELATIONSHIPS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -114,20 +116,20 @@ Review.belongsTo(User);
 
 //1. GET REQUEST (INDEX & LOGIN FORM)
 
-app.get('/', (req, res) =>{
+app.get('/', (req, res) => {
 
-fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+    fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
         if (err) {
             throw err;
         }
         // console.log (data)
-       var restaurants = JSON.parse(data)
-       console.log(restaurants)
+        var restaurants = JSON.parse(data)
+        console.log(restaurants[0])
 
-       res.render('index', {
-		        message: req.query.message,
-		        user: req.session.user
-		})
+        res.render('index', {
+            message: req.query.message,
+            user: req.session.user
+        })
     })
 });
 
@@ -162,34 +164,34 @@ app.post('/login', (req, res) => {
 
 app.get('/profile', (req, res) => {
 
-	var user = req.session.user
+    var user = req.session.user
 
-	fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+    fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
         if (err) {
             throw err;
         }
 
         var restaurants = JSON.parse(data)
-   
-	    if (user) {
-	        Review.findAll({
-	                where: {
-	                    userId: req.session.user.id
-	                },
-	                order: [
-	                    ['id', 'DESC']
-	                ],
-	            })
-	            .then(reviews => {
-	                res.render('profile', {
-	                    user: user,
-	                    reviews: reviews
-	                })
-	            })
-	    } else {
-	        res.redirect('/?message=' + encodeURIComponent("Please log in!"));
-	    }
-	})
+
+        if (user) {
+            Review.findAll({
+                    where: {
+                        userId: req.session.user.id
+                    },
+                    order: [
+                        ['id', 'DESC']
+                    ],
+                })
+                .then(reviews => {
+                    res.render('profile', {
+                        user: user,
+                        reviews: reviews
+                    })
+                })
+        } else {
+            res.redirect('/?message=' + encodeURIComponent("Please log in!"));
+        }
+    })
 });
 
 //. GET REQUEST (REGISTER FORM)
@@ -216,18 +218,17 @@ app.post('/register', (req, res) => {
 
 app.get('/feed', (req, res) => {
 
-	fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
-        if (err) {
-            throw err;
-        }
+    fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+           if (err) {
+               throw err;
+           }
 
-        var restaurants = JSON.parse(data)
-      
-    	res.render('feed', {
-    		restaurants: restaurants
-    	})
+           var restaurants = JSON.parse(data)
+
+    res.render('feed', {restaurants:restaurants})
     })
 })
+
 
 //. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
 // here we get the restaurant data from the ajax request.
@@ -235,69 +236,91 @@ app.get('/feed', (req, res) => {
 // and req.body.search
 
 app.post('/findrestaurants', (req, res) => {
-	
-	const user = req.session.user
-	const search = req.body.searchrestaurants
-		console.log(search)
-	
-	fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+
+    const user = req.session.user
+    const search = req.body.searchrestaurants
+    console.log(search)
+
+    fs.readFile('../public/restaurantDataAMS.json', "utf8", (err, data) => {
         if (err) {
             throw err;
         }
 
         var restaurants = JSON.parse(data)
+        // console.log(restaurants)
 
-        var results = []
+        for (i = 0; i < restaurants.length; i++) {
 
-        for (i = 0; i < data.length; i++) {
-
-        	if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
-            console.log(restaurants[i])
-
-            results.push(restaurants[i])
-
-             //pass on result of specific restaurant to feed page.
-        	}
-    	}.then(results=>{
-    		res.redirect('/getrestaurants')
-    	})
-    	
+            if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
+                console.log(restaurants[i].title)
+                
+                res.render ('feed', {restaurant: restaurant[i].title})
+                //pass on result of specific restaurant to feed page.
+            }
+            
+        }
     })
-})
 
-//	GET REQUEST (GET RESTAURANT DATA)
 
-app.get('/getrestaurants', (req, res) =>{
-	
-	res.send({result:results})
+
+    })
+
+
+
+
+//  GET REQUEST (GET RESTAURANT DATA)
+
+app.get('/getrestaurants', (req, res) => {
+    
+    fs.readFile("../public/restaurantDataAMS.json", (err, data) => {
+        if (err) {
+            throw err
+        }
+
+        var restaurants = JSON.parse(data)
+
+        var searchrestaurants = req.query.searchrestaurants;
+            console.log(searchrestaurants);
+
+        var matchingRestaurants = []
+
+        if (req.query.searchrestaurants == "") {
+            matchingRestaurants == []
+        }
+
+
+        //.toLowerCase employed for both input and parsedData keys to creat case-insensitivity.
+        else {
+            for (var i = 0; i < restaurants.length; i++) {
+                if (restaurants[i].title.toLowerCase().indexOf(searchrestaurants.toLowerCase()) !== -1 || restaurants[i].details.en.shortdescription.toLowerCase().indexOf(searchrestaurants.toLowerCase()) !== -1) {
+                    matchingRestaurants.push(restaurants[i])
+
+                }
+
+                // console.log(matchingRestaurants)
+            }
+        }
+
+        res.send({ matchingRestaurants: matchingRestaurants})
+
+    });
 })
 
 //. POST REQUEST - POST INFO FROM LINK CLICKED POINTING TO SPECIFIC RESTAURANT; PASS ON RESULT
 //  get properties of data[i] from '/getRestaurant' post request.
 //  redirect to '/restaurant/:restaurantId' and pass on info
 
-app.post('/getRestaurantFromLink', (req, res) => {
-    
+app.post('/restaurantViaLink', (req, res) => {
+
     const user = req.session.user
 
-    fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
-        if (err) {
-            throw err;
-        }
-
-        var restaurants = JSON.parse(data)
 
 
-    Review.findAll({
-        where: {
-            restaurantName: restaurant.title
-        }
+   
+            res.redirect(`/restaurant/${match.trcid}`)
+        })
 
-    }).then(reviews => {
-        res.redirect(`/restaurant/${restaurant.id}`)
     })
-
-})
 
 })
 
