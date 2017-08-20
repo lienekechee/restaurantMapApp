@@ -35,6 +35,7 @@
 
 
 
+
 /* ----- Fonts -------------------------------------------------------------- */
 
 h1 h2 h3 h4 h5 h6 {
@@ -48,8 +49,6 @@ h1 {
 h2 {
     font-family: 'Lora', serif;
 }
-
-
 
 
 /* ----- Navigation --------------------------------------------------------- */
@@ -91,28 +90,39 @@ h2 {
 }
 
 
+
 /* -------- PROFILE ------------------------------------------------------------------------ */
 
-
 #profile {
-    width: 30%;
+    max-width: 30%;
+    min-width: 80%;
     padding: 20px;
     margin-left: auto;
     margin-right: auto;
 }
 
 #profile h2 {
-    margin: 0px 0px 20px 0px;
+    margin: 0px 0px 20px 30px;
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
 }
 
 #profile h3 {
-    margin: 0px 0px 10px 0px;
+    margin: 10px 0px 10px 0px;
     font-family: 'Open Sans', sans-serif;
 }
 
+#profile-field {
+    display: block;
+    float: left;
+    margin-top: -8px;
+    margin-left: 16px;
+    width: 70%;
+}
+
 #profile-list {
+    letter-spacing: 1.2px;
+    font-family: 'PT Sans', sans-serif;
     background-color: #f7f7f7;
     width: 100%;
     height: 36px;
@@ -120,7 +130,7 @@ h2 {
     padding-top: 18px;
     margin-left: 0px;
     margin-right: 0px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 #profile-list p {
@@ -130,18 +140,70 @@ h2 {
 }
 
 #container-profile {
-  padding-top: 100px;
-
+    padding-top: 100px;
 }
 
+#upload-photo {
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    float: left;
+    width: 260px;
+    height: 260px;
+    background-color: #f7f7f7;
+    border: 1.5px dashed #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+
+#upload-photo h3 {
+    margin-top: 20px;
+}
+
+#upload-photo img {
+    width: 30%; 
+    height: 30%;
+    margin-top: 40px;
+    opacity: 0.1;
+}
+
+.upload-button {
+    font-family: 'PT Sans', sans-serif;
+    background-color: none;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #151920;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 
 /* ----- Index ---------------------------------------------------------------- */
 
 #header {
     clear: both;
-    display: flex;
+    height: 150px;
     text-align: center;
+}
+
+#header h1 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 72px;
+    font-wieght: normal;
+}
+
+#header h2 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    font-size: 44px;
+    font-wieght: normal;
 }
 
 #container1 {
@@ -152,7 +214,12 @@ h2 {
 }
 
 #form {
+    display: block;
     width: 100%;
+}
+
+#form h2 {
+    text-align: center;
 }
 
 form {
@@ -160,14 +227,75 @@ form {
     height: 40%;
 }
 
-input#email {
+
+input[type='text'],
+select {
+    font-family: 'PT Sans', sans-serif;
     margin: 5px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-left: 10px;
 }
 
-input#password {
+input[type='email'],
+select {
+    font-family: 'PT Sans', sans-serif;
     margin: 5px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-left: 10px;
 }
 
+input[type='password'],
+select {
+    font-family: 'PT Sans', sans-serif;
+    margin: 5px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+input[type='submit'] {
+    font-family: 'PT Sans', sans-serif;
+    margin: 15px 5px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 3px;
+    width: 200px;
+    height: 40px;
+}
+
+.button {
+    font-weight: 300;
+    margin-top: 20px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    color: #a3a3a3;
+    text-align: center;
+    text-decoration: none;
+}
 
 #map {
     width: 60%;
@@ -185,16 +313,16 @@ input#password {
 }
 
 
+/* ----- Feed ---------------------------------------------------------------- */
+
 /*searchbar*/
 
 #searchbar {
     display: flex;
     width: 60%;
-    height: 60px;
-    background-color: #fff;
-    border: 1px solid #000;
+    height: 120px;
+    background-color: none;
     position: relative;
-    top: 60px;
     margin-right: auto;
     margin-left: auto;
     z-index: 10;
@@ -203,22 +331,6 @@ input#password {
 .search {
     width: 100%;
     position: relative;
-    &:before {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        font-family: 'FontAwesome';
-        content: '\f002';
-        background: $color;
-        text-align: center;
-        color: $iconColor;
-        border-radius: 5px;
-        -webkit-font-smoothing: subpixel-antialiased;
-        font-smooth: always;
-    }
 }
 
 .searchTerm {
@@ -230,6 +342,10 @@ input#password {
     outline: none;
 }
 
+input[name=searchrestaurants] {
+    padding-left: 30px;
+}
+
 .searchButton {
     position: absolute;
     top: 0;
@@ -239,51 +355,6 @@ input#password {
     background-color: red;
     opacity: 0;
     cursor: pointer;
-}
-
-#container2 {
-    z-index: 2;
-    padding-top: 40px;
-    display: block;
-    float: left;
-    width: 100%;
-    height: 400px;
-}
-
-.resto {
-    margin-right: auto;
-    margin-left: auto;
-    border: 1px solid #000;
-    width: 70%;
-    height: 100%;
-    background-color: #ffffff;
-}
-
-.resto img {
-    display: block;
-    float: left;
-    max-width: 500px;
-    height: 100%;
-}
-
-.info {
-    display: block;
-    float: left;
-    s padding: 10px;
-    height: 100%;
-}
-
-.category {
-    width: 100%;
-}
-
-.category-btn {
-    clear: both;
-    background-color: #d6dadd;
-    color: #151920;
-    font-family: 'PT Sans', sans-serif;
-    padding: 5px 20px;
-    border-radius: 2px;
 }
 
 .category-btn p {
@@ -308,6 +379,53 @@ input#password {
     height: 600px;
 }
 
+/*searchbar*/
+
+#container4 {
+    display: block;
+    float: left;
+    width: 80%;
+}
+
+#container4 ul {
+    width: 100%;
+    height: 100%;
+}
+
+#container4 ul li {
+    display: block;
+    width: 1200;
+} 
+
+.restaurant-info {
+    display: block;
+    float: left;
+    width: 100%
+    height: 100%;
+}
+
+.restaurant-photo {
+    display: block;
+    float: left;
+    width: 300px;
+    height: 300px;
+}
+
+.restautant-photo img {
+    width: 100%;
+    height: 100%;
+}
+
+.restaurant-title {
+
+    display: block;
+    float: left;
+}
+
+.restaurant-description {
+    display: block;
+    float: left;
+}
 
 
 /* ----- Login ---------------------------------------------------------------- */

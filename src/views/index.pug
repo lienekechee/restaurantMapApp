@@ -2,7 +2,7 @@ doctype html
 html
 
 	head
-		
+		link(href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet")
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
@@ -27,27 +27,23 @@ html
 
 		.topnav
 			#myTopnav
-			//- a(href='#home') Home
-			//- a(href='#news') News
-			//- a(href='#contact') Contact
-			//- a(href='#register') Register
-			//- a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
 
 		//- header
 		#header
 			h1 Something
-				h2 Something
+			h2 Something
 
+		//- form
 		#form
 			h2 Login
 			//- login form
 			form(name='loginform', action='/login', method='POST')
-				input#name(type='text', name='email', placeholder='Email...', required) 
-				input#email(type='password', name='password', placeholder='Password...', required)
+				input(type='text', name='email', placeholder='Email...', required) 
+				input(type='password', name='password', placeholder='Password...', required)
+				
+				input(type='submit', name='submit', value='Login')
 
-				input(type='submit', value='login')
-
-				button.button(href='register') Or register?
+			a(class='button' href='/registerform') Or register?
 
 
 		//- script link

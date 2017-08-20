@@ -16,26 +16,33 @@ html
 
 	//- body
 	body(bgcolor='#f5eee1')
+		#nav
+			if user
+				#myTopnav(class='topnav')
+					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
+					a(href='logout') Logout
+					a(href='search') Search
+					a(href='#') Profile
+					a(href='feed') Home
+					a(href='logo' style='float: left', margin-left='300px') ø
+					
+			else
+				#myTopnav(class='topnav')
+					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
+					a(href='register') Login
+					a(href='search') Search
+					a(href='#') Profile
+					a(href='register') Home
 
-		.logo
-			img
-
-		.topnav
-			#myTopnav
-			a(href='#home') Home
-			a(href='#news') News
-			a(href='#contact') Contact
-			a(href='#register') Register
-			a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
 
 
 		//- search bar in map  
 		#searchbar
-			form.search(method='post' action='/findrestaurants')
-				input.searchTerm(id = 'searchrestaurants' name='searchrestaurants' placeholder='Enter your search term...')
-				button.searchButton(type='submit')
+			form(class='search', method='post' action='/findrestaurants')
+				input(class='searchTerm', id = 'searchrestaurants' name='searchrestaurants' placeholder='Enter your search term...')
+				//- button(class='searchButton' type='submit')
 
-		#container3
+		#container4
 			script.
 				$(document).ready(function(){
 					$("#searchrestaurants").keyup(function(){
@@ -43,24 +50,18 @@ html
 						var searchrestaurants = {searchrestaurants: $("#searchrestaurants").val()};
 
 						console.log (searchrestaurants)
-						
-				
+
 
 						$.get("/getrestaurants", searchrestaurants, function(response){
 							var match = response.matchingRestaurants;
 							
-							$("#container3").html("<ul/>");
+							$("#container4").html("<ul/>");
 								for(var i=0; i<match.length; i++) {
 									$("ul").append(
-									"<li><form method =\"POST\" action = '/restaurantViaLink' id = 'restaurantLink'><input type=\"hidden\" name=\"restaurantLink\" value=`${match[i].trcid}`><a href=`/restaurant/${match[i].trcid}` onclick=\"document.getElementById('restaurantLink').submit()\">"+ match[i].title + ": " + match[i].details.en.shortdescription + "<img src=\"" + match[i].media[0].url + "\"/></li><br>")
+									"<li><form method =\"POST\" action = '/restaurantViaLink' id = 'restaurantLink'><input type=\"hidden\" name=\"restaurantLink\" value=`${match[i].trcid}`><a href=`/restaurant/${match[i].trcid}` onclick=\"document.getElementById('restaurantLink').submit()\"><div class='restaurant-info'><div class='restaurant-photo'><img src=\"" + match[i].media[0].url + "\"/><div><div class='restaurant-title'>" + match[i].title + "</div><div class='restaurant-description'>" + match[i].details.en.shortdescription + "</div></div></li><br>")
 								}
 						});
 					
-		//- <form method ="POST" action = '/restaurantViaLink' id = 'restaurantLink'>
-  //-           <input type="hidden" name="postLink" value=`${match[i].trcid}`>
-  //-           <a href=`/restaurant/${match[i].trcid}` onclick="document.getElementById('postLink').submit()"> #{post.subject}
-						
-							//- setTimeout(ajaxCall, 300)
 					});
 				});
 

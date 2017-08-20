@@ -27,20 +27,20 @@ html
 
 		#header
 			h1 Something
-				h2 Something
+			h2 Something
 
 		//- Register
 		#form
 			h2 Register
 
 			form(name='form', action='/register', method='POST')
-				input#name(type='text', name='usernameNew', placeholder='Username...', required) 
-				input#email(type='email', name='emailNew', placeholder='Email...', required)
-				input#password(type='text', name='passwordNew', placeholder='Password...', required)
+				input(type='text', name='usernameNew', placeholder='Your username...', required) 
+				input(type='email', name='emailNew', placeholder='Your email...', required)
+				input(type='text', name='passwordNew', placeholder='Your password...', required)
 
-				input(type='submit', value='register')
+				input(type='submit', value='Register')
 
-				button.button(href='register') Or Login?
+			a(class='button' href='/login') Or login?
 
 		//- scripts 
 		script.

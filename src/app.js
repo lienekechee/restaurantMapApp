@@ -219,13 +219,13 @@ app.post('/register', (req, res) => {
 app.get('/feed', (req, res) => {
 
     fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
-           if (err) {
-               throw err;
-           }
+        if (err) {
+            throw err;
+        }
 
-           var restaurants = JSON.parse(data)
+        var restaurants = JSON.parse(data)
 
-    res.render('feed', {restaurants:restaurants})
+        res.render('feed', { restaurants: restaurants })
     })
 })
 
@@ -253,17 +253,17 @@ app.post('/findrestaurants', (req, res) => {
 
             if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
                 console.log(restaurants[i].title)
-                
-                res.render ('feed', {restaurant: restaurant[i].title})
+
+                res.render('feed', { restaurant: restaurant[i].title })
                 //pass on result of specific restaurant to feed page.
             }
-            
+
         }
     })
 
 
 
-    })
+})
 
 
 
@@ -271,7 +271,7 @@ app.post('/findrestaurants', (req, res) => {
 //  GET REQUEST (GET RESTAURANT DATA)
 
 app.get('/getrestaurants', (req, res) => {
-    
+
     fs.readFile("../public/restaurantDataAMS.json", (err, data) => {
         if (err) {
             throw err
@@ -280,7 +280,7 @@ app.get('/getrestaurants', (req, res) => {
         var restaurants = JSON.parse(data)
 
         var searchrestaurants = req.query.searchrestaurants;
-            console.log(searchrestaurants);
+        console.log(searchrestaurants);
 
         var matchingRestaurants = []
 
@@ -301,7 +301,7 @@ app.get('/getrestaurants', (req, res) => {
             }
         }
 
-        res.send({ matchingRestaurants: matchingRestaurants})
+        res.send({ matchingRestaurants: matchingRestaurants })
 
     });
 })
@@ -314,15 +314,9 @@ app.post('/restaurantViaLink', (req, res) => {
 
     const user = req.session.user
 
-
-
-   
-            res.redirect(`/restaurant/${match.trcid}`)
-        })
-
-    })
-
+    res.redirect(`/restaurant/${match.trcid}`)
 })
+
 
 //. GET REQUEST (GET RESTAURANT PROFILE INCLUDING MAP, INFO/MEDIA, RATING, REVIEWS, & CREATE REVIEW)
 
