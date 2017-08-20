@@ -21,8 +21,8 @@ html
 					a(href='logout') Logout
 					a(href='search') Search
 					a(href='#') Profile
-					a(href='logout') Home
-					a(href='logo' style: ) ø
+					a(href='feed') Home
+					a(href='logo' style='float: left', margin-left='300px') ø
 					
 			else
 				#myTopnav(class='topnav')
@@ -34,17 +34,23 @@ html
 					
 		#container-profile
 			#profile
-				h2 Hi #{user.name}, this is your profile.
+				h2 Hi #[strong #{user.username}], this is your profile.
 
-				h3 your profile name:
-				#profile-list
-					p #{user.name}
-				h3 your email:
-				#profile-list 
-					p #{user.email}
-				h3 your password:
-				#profile-list 
-					p #{user.password}
+				#upload-photo
+					img(src='img/upload-image.png')
+					h3 upload your photo
+					a(class='upload-button' href='/upload') Upload?	
+
+				#profile-field
+					h3 your profile name:
+					#profile-list
+						p #{user.username}
+					h3 your email:
+					#profile-list 
+						p #{user.email}
+					h3 your password:
+					#profile-list 
+						p #{user.password}
 
 
 		//- script link
