@@ -58,7 +58,9 @@ html
 							$("#container4").html("<ul/>");
 								for(var i=0; i<match.length; i++) {
 									$("ul").append(
-									"<li><form method =\"POST\" action = '/restaurantViaLink' id = 'restaurantLink'><input type=\"hidden\" name=\"restaurantLink\" value=`${match[i].trcid}`><a href=`/restaurant/${match[i].trcid}` onclick=\"document.getElementById('restaurantLink').submit()\"><div class='restaurant-card'><div class='restaurant-photo'><img src=\"" + match[i].media[0].url + "\" class='img'/></div><div class='restaurant-info'><div class='restaurant-title'>" + match[i].title + "</div><div class='restaurant-description'>" + match[i].details.en.shortdescription + "</div></div></li><br>")
+									"<li><form method =\'POST\' action = '/restaurantViaLink' id = 'restaurantLink'><input type=\'hidden\' name=\'restaurantLink\' value=" + `${match[i].trcid}`+ "><a href=restaurant/" + `${match[i].trcid}` + " onclick=\'document.getElementById('restaurantLink').submit()\'><div class='restaurant-card'><div class='restaurant-photo'><img src=" + match[i].media[0].url + " class='img'/></div><div class='restaurant-info'><div class='restaurant-title'>" + match[i].title + "</div><div class='restaurant-description'>" + match[i].details.en.shortdescription + "</div></div></li><br>")
+
+									console.log (match[i].trcid)
 								}
 						});
 					

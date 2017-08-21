@@ -14,8 +14,6 @@ html
 		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
 		script(type='text/javascript' src='/js/script.js')
 
-		link(rel='stylesheet' href='bower_components/css-star-rating/dist/css/star-rating.css')
-
 
 	//- body
 	body(bgcolor='#f5eee1')
@@ -38,20 +36,9 @@ html
 		#map
 
 		#container1
-			h1 Something
-				h2 Something
-
-		for each restaurant in restaurants
+			h1 #{restaurant.title}
 		#container2
-			.resto 
-				img
-				.info
-					h2 #{restaurant.title}
-					p #{restaurant.description}
-					#rating 
-						value-3 
-							space-between
-								#star-container
+			
 
 					
 

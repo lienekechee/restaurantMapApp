@@ -312,22 +312,61 @@ app.get('/getrestaurants', (req, res) => {
 
 app.post('/restaurantViaLink', (req, res) => {
 
+    const trcid = req.body.restaurantLink
+    console.log(trcid)
     const user = req.session.user
 
-    res.redirect(`/restaurant/${match.trcid}`)
+    fs.readFileAsync("../public/restaurantDataAMS.json", (err, data) => {
+        if (err) {
+            throw err
+        }
+
+        var restaurants = JSON.parse(data)
+
+
+        for (i = 0; i < restaurants.length; i++) {
+            if (trcid === restaurants[i].trcid) {
+                console.log(restaurants[i])
+            }
+        }
+
+
+    }).then(restaurant => {
+        console.log(restaurant)
+        res.redirect(`/restaurant/${restaurant.trcid}`)
+    })
+
+
 })
 
 
 //. GET REQUEST (GET RESTAURANT PROFILE INCLUDING MAP, INFO/MEDIA, RATING, REVIEWS, & CREATE REVIEW)
 
 
-app.get('/restaurant/:restaurantId', (req, res) => {
-    const data = req.query.data
-    const restaurantId = data.trcid
+app.get('/restaurant/:trcid', (req, res) => {
 
-    //
+    const user = req.session.user
+    const trcid = req.params.trcid
+    console.log (trcid)
 
+    fs.readFile("../public/restaurantDataAMS.json", (err, data) => {
+        if (err) {
+            throw err
+        }
+        var restaurants = JSON.parse(data)
+
+        for (i = 0; i < restaurants.length; i++) {
+            if (restaurants[i].trcid === trcid) {
+                 // restaurants[i]
+                console.log (restaurants[i])
+                res.render('restaurant', {restaurant:restaurants[i]})
+            }
+        }
+    })
 })
+
+
+
 
 
 
