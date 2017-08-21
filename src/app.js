@@ -3,9 +3,9 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const session = require('express-session')
 const Sequelize = require('sequelize')
-const fs = require('fs')
+
 var Promise = require('bluebird');
-Promise.promisifyAll(fs);
+const fs = Promise.promisifyAll(require('fs'));
 
 const database = new Sequelize('restaurantmapappdb', process.env.POSTGRES_USER, null, {
     host: 'localhost',
@@ -306,9 +306,9 @@ app.get('/restaurant/:trcid', (req, res) => {
 
     const user = req.session.user
     const trcid = req.params.trcid
-    console.log (trcid)
+    console.log(trcid)
 
-    fs.readFile("../public/restaurantDataAMS.json", (err, data) => {
+    fs.readFileAsync("../public/restaurantDataAMS.json", (err, data) => {
         if (err) {
             throw err
         }
@@ -316,13 +316,34 @@ app.get('/restaurant/:trcid', (req, res) => {
 
         for (i = 0; i < restaurants.length; i++) {
             if (restaurants[i].trcid === trcid) {
-                 // restaurants[i]
-                console.log (restaurants[i])
-                res.render('restaurant', {restaurant:restaurants[i]})
-            }
-        }
-    })
-})
+                console.log(restaurants[i])
+
+                    }}
+                })
+            .then(restaurant =>{
+
+                console.log(restaurant)
+                Review.findAll({
+                    where: {
+                        restaurantId: trcid
+                    }
+                })
+
+                .then(reviews => {
+                    console.log(restaurant)
+                    console.log(reviews)
+                    res.render('restaurant', {
+                        restaurant: restaurant,
+                        reviews: reviews
+                    });
+                })
+            })
+        });
+
+
+
+
+
 
 
 //. POST REQUEST (CREATE A REVIEW)
@@ -336,7 +357,7 @@ app.post('/writeReview', (req, res) => {
         where: {
             id: user.id
         }
-    }).then (user => {
+    }).then(user => {
         return user.createReview({
             restaurantName: req.body.restaurantName,
             restaurantId: req.body.restaurantId,
