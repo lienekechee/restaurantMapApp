@@ -36,6 +36,7 @@
 
 
 
+
 /* ----- Fonts -------------------------------------------------------------- */
 
 h1 h2 h3 h4 h5 h6 {
@@ -51,6 +52,7 @@ h2 {
 }
 
 
+
 /* ----- Navigation --------------------------------------------------------- */
 
 .logo {
@@ -61,6 +63,14 @@ h2 {
 }
 
 .logo img {}
+
+
+
+#nav {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .topnav {
     overflow: hidden;
@@ -88,6 +98,7 @@ h2 {
 .topnav .icon {
     display: none;
 }
+
 
 
 
@@ -162,7 +173,7 @@ h2 {
 }
 
 #upload-photo img {
-    width: 30%; 
+    width: 30%;
     height: 30%;
     margin-top: 40px;
     opacity: 0.1;
@@ -182,6 +193,7 @@ h2 {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 
 
 /* ----- Index ---------------------------------------------------------------- */
@@ -313,7 +325,9 @@ input[type='submit'] {
 }
 
 
+
 /* ----- Feed ---------------------------------------------------------------- */
+
 
 /*searchbar*/
 
@@ -381,50 +395,75 @@ input[name=searchrestaurants] {
 
 /*searchbar*/
 
-#container4 {
+img[class] {
+    width: 100%;
+}
+
+.container4 {
+    margin-top: 50px;
+    display: block;
+    float: flex;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container4 ul {
+
+}
+
+.container4 ul li {
     display: block;
     float: left;
-    width: 80%;
+    border: 1px solid #000;
 }
 
-#container4 ul {
-    width: 100%;
-    height: 100%;
-}
-
-#container4 ul li {
+.restaurant-card {
     display: block;
-    width: 1200;
-} 
+    width: 100%;
+    float: left;
+    border: 1px solid #000;
+    padding: 20px;
+}
+
+.restaurant-photo {
+    margin: auto;
+    float: left;
+    width: 40%;
+    margin: 0 30px 0px 0;
+    background-color: none;
+    overflow: hidden;
+}
+
+.restaurant-photo .img {
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
 
 .restaurant-info {
     display: block;
     float: left;
-    width: 100%
-    height: 100%;
-}
-
-.restaurant-photo {
-    display: block;
-    float: left;
-    width: 300px;
-    height: 300px;
-}
-
-.restautant-photo img {
-    width: 100%;
-    height: 100%;
+    width: 50%;
 }
 
 .restaurant-title {
-
     display: block;
     float: left;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 36px;
+    color: #000;
 }
 
 .restaurant-description {
+    margin-top: 30px;
+    width: 100%;
     display: block;
     float: left;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 20px;
+    color: #000;
 }
 
 
