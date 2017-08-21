@@ -46,30 +46,7 @@ var User = database.define('users', {
     timestamps: false
 });
 
-// var Restaurant = database.define('restaurants', {
-//  name: {
-//      type: Sequelize.STRING
-//  },
-//  address: {
-//      type: Sequelize.STRING
-//  },
-//  latitude: {
-//      type: Sequelize.STRING
-//  },
-//  longitude: {
-//      type: Sequelize.STRING
-//  },
-//  media: {
-//      type: Sequelize.STRING
-//  },
-//  description: {
-//      type: Sequelize.STRING
-//  },
-//  website: {
-//      type: Sequelize.STRING
-//  }
-// })
-var Review = database.define('posts', {
+var Review = database.define('reviews', {
     restaurantName: {
         type: Sequelize.STRING
     },
@@ -78,21 +55,6 @@ var Review = database.define('posts', {
     },
     body: {
         type: Sequelize.TEXT
-    }
-}, {
-    timestamps: false
-
-});
-
-var Rating = database.define('comments', {
-    restaurantName: {
-        type: Sequelize.STRING
-    },
-    restaurantId: {
-        type: Sequelize.STRING //TRCID
-    },
-    rating: {
-        type: Sequelize.STRING //?
     }
 }, {
     timestamps: false
@@ -137,8 +99,8 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
 
-    var email = req.body.email
-    var password = req.body.password
+    const email = req.body.email
+    const password = req.body.password
 
     User.findOne({
             where: {
@@ -164,7 +126,7 @@ app.post('/login', (req, res) => {
 
 app.get('/profile', (req, res) => {
 
-    var user = req.session.user
+    const user = req.session.user
 
     fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
         if (err) {
@@ -265,9 +227,6 @@ app.post('/findrestaurants', (req, res) => {
 
 })
 
-
-
-
 //  GET REQUEST (GET RESTAURANT DATA)
 
 app.get('/getrestaurants', (req, res) => {
@@ -366,19 +325,26 @@ app.get('/restaurant/:trcid', (req, res) => {
 })
 
 
-
-
-
-
-//. GET REQUEST (GET MAP FOR RESTAURANT WITH LOCATION MARKED)
-
-//. GET REQUEST (GET DIRECTIONS)
-
 //. POST REQUEST (CREATE A REVIEW)
 
+app.post('/writeReview', (req, res) => {
+    const user = req.session.user
+    const trcid = req.body.restaurantId
 
 
-//. POST REQUEST (GIVE A RATING)
+    User.findOne({
+        where: {
+            id: user.id
+        }
+    }).then (user => {
+        return user.createReview({
+            restaurantName: req.body.restaurantName,
+            restaurantId: req.body.restaurantId,
+            body: req.body.reviewBody
+        })
+    })
+})
+
 
 //. GET REQUEST (LOG OUT)
 
