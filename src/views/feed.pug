@@ -2,15 +2,17 @@ doctype html
 html
 
 	head
-		
+
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+		
 		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
 		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
+			
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
 		script(type='text/javascript' src='/js/script.js')
 
 
@@ -21,18 +23,16 @@ html
 				#myTopnav(class='topnav')
 					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
 					a(href='logout') Logout
-					a(href='search') Search
-					a(href='#') Profile
+					a(href='profile') Profile
 					a(href='feed') Home
 					a(href='logo' style='float: left', margin-left='300px') ø
 					
 			else
 				#myTopnav(class='topnav')
 					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
-					a(href='register') Login
-					a(href='search') Search
-					a(href='#') Profile
-					a(href='register') Home
+					a(href='/') Login
+					a(href='profile') Profile
+					a(href='feed') Home
 
 
 		//- search bar in map  
