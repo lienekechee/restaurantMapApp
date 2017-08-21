@@ -17,35 +17,57 @@ html
 
 	//- body
 	body(bgcolor='#f5eee1')
-
 		//- navigation
-		.logo
-			img
-
-		.topnav
-			#myTopnav
-			//- a(href='#home') Home
-			//- a(href='#news') News
-			//- a(href='#contact') Contact
-			//- a(href='#register') Register
-			//- a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776;
-
-		//- header
-		#header
-			
-		#map
-
-		#container1
-			h1 #{restaurant.title}
-		#container2
-			
-
+		#nav
+			if user
+				#myTopnav(class='topnav')
+					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
+					a(href='logout') Logout
+					a(href='#') Profile
+					a(href='feed') Home
+					a(href='logo' style='float: left', margin-left='300px') ø
 					
-
-
-		//- script link
-		script(type='text/javascript' src='/js/script.js')
+			else
+				#myTopnav(class='topnav')
+					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
+					a(href='register') Login
+					a(href='#') Profile
+					a(href='register') Home
 		
-		//- scripts 
+		//- restaurant map		
+		#container1
+			#map(data-long=`${restaurant.location.longitude}` data-lat=`${restaurant.location.latitude}` style= 'position:absolute; top:0; bottom:0; width:100%;')
+
+		//- restaurant title
+		#container2
+			h2 #{restaurant.title}
+
+		#container3
+			.comment
+				form(name='reviews', action='/writeReview', method='POST')
+					textarea#review(type='text', name='review', placeholder='Write a review...')
+					input(type='hidden', name='reviewInfo', value=`${restaurant.tcrId}`)
+					input(type='hidden', name='reviewInfo', value=`${restaurant.title}`)
+					input(type='submit')
+
+		script.
+			console.log(long);
+			console.log(long);
+			var long = $('#map').data("long")
+			var lat = $('#map').data("lat")
+
+			var long_ = long.replace(/,/g, '.')
+			var lat_ = lat.replace(/,/g, '.')
+			
+	
+			mapboxgl.accessToken = 'pk.eyJ1IjoiZmN3YnIiLCJhIjoienNUYVlNZyJ9.983XCange6sobeBpnPO4Wg';
+			var map = new mapboxgl.Map({
+				container: 'map', // container id
+				style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+				center: [long_,lat_], // starting position [lng, lat]
+				zoom: 18 // starting zoom
+			});
+
+
 
 		//- footer
