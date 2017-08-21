@@ -37,6 +37,8 @@
 
 
 
+
+
 /* ----- Fonts -------------------------------------------------------------- */
 
 h1 h2 h3 h4 h5 h6 {
@@ -50,6 +52,8 @@ h1 {
 h2 {
     font-family: 'Lora', serif;
 }
+
+
 
 
 
@@ -98,6 +102,8 @@ h2 {
 .topnav .icon {
     display: none;
 }
+
+
 
 
 
@@ -193,6 +199,8 @@ h2 {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+
 
 
 
@@ -326,6 +334,8 @@ input[type='submit'] {
 
 
 
+
+
 /* ----- Feed ---------------------------------------------------------------- */
 
 
@@ -339,6 +349,7 @@ input[type='submit'] {
     position: relative;
     margin-right: auto;
     margin-left: auto;
+    margin-top: 20px;
     z-index: 10;
 }
 
@@ -393,53 +404,62 @@ input[name=searchrestaurants] {
     height: 600px;
 }
 
-/*searchbar*/
+
+
+/*search result*/
 
 img[class] {
     width: 100%;
 }
 
-.container4 {
-    margin-top: 50px;
-    display: block;
-    float: flex;
+#container4 {
+    position: relative;
+    display: flex;
+    margin-top: 0px;
     width: 80%;
-    margin-right: auto;
     margin-left: auto;
+    margin-right: auto;
 }
 
-.container4 ul {
-
+#container4 ul {
+    align-items: center;
 }
 
-.container4 ul li {
+
+form#restaurantLink {
+    margin-left: 0px;
     display: block;
     float: left;
-    border: 1px solid #000;
 }
 
 .restaurant-card {
-    display: block;
     width: 100%;
-    float: left;
-    border: 1px solid #000;
+    display: block;
     padding: 20px;
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #000;
+    background-color: #fff;
+    border-radius: 3px;
 }
 
 .restaurant-photo {
-    margin: auto;
     float: left;
     width: 40%;
     margin: 0 30px 0px 0;
     background-color: none;
     overflow: hidden;
+    border: 1px, solid, #000;
 }
+
 
 .restaurant-photo .img {
     min-width: 100%;
     min-height: 100%;
     max-height: 400px;
     object-fit: cover;
+    border: 10px, solid, #000;
 }
 
 .restaurant-info {
@@ -449,10 +469,11 @@ img[class] {
 }
 
 .restaurant-title {
+    margin-top: 10px;
     display: block;
     float: left;
     font-family: 'PT Sans', sans-serif;
-    font-size: 36px;
+    font-size: 32px;
     color: #000;
 }
 
@@ -462,9 +483,11 @@ img[class] {
     display: block;
     float: left;
     font-family: 'PT Sans', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     color: #000;
 }
+
+
 
 
 /* ----- Login ---------------------------------------------------------------- */
