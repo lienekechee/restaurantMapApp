@@ -5,6 +5,7 @@ html
 
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+		script(src="https://use.fontawesome.com/cc4cabd0ce.js")
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
@@ -14,6 +15,10 @@ html
 			
 		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
 		script(type='text/javascript' src='/js/script.js')
+
+		//- fontawesome
+		
+
 
 
 	//- body
@@ -33,12 +38,12 @@ html
 					a(href='/') Login
 					a(href='logo' style='float: left', margin-left='300px') ø
 
+
 		//- search bar in map  
 		#searchbar
 			form(class='search', method='post' action='/findrestaurants')
 				input(class='searchTerm', id = 'searchrestaurants' name='searchrestaurants' placeholder='Enter your search term...')
 				//- button(class='searchButton' type='submit')
-
 
 
 		//- search 
@@ -58,7 +63,7 @@ html
 							$("#container4").html("<ul/>");
 								for(var i=0; i<match.length; i++) {
 									$("ul").append(
-									"<li><form method =\'POST\' action = '/restaurantViaLink' id = 'restaurantLink'><input type=\'hidden\' name=\'restaurantLink\' value=" + `${match[i].trcid}`+ "><a href=restaurant/" + `${match[i].trcid}` + " onclick=\'document.getElementById('restaurantLink').submit()\'><div class='restaurant-card'><div class='restaurant-photo'><img src=" + match[i].media[0].url + " class='img'/></div><div class='restaurant-info'><div class='restaurant-title'>" + match[i].title + "</div><div class='restaurant-description'>" + match[i].details.en.shortdescription + "</div></div></li><br>")
+									"<li><form method =\'POST\' action = '/restaurantViaLink' id = 'restaurantLink'><input type=\'hidden\' name=\'restaurantLink\' value=" + `${match[i].trcid}`+ "><a href=restaurant/" + `${match[i].trcid}` + " onclick=\'document.getElementById('restaurantLink').submit()\'><div class='restaurant-card'><div class='restaurant-photo'><img src=" + match[i].media[0].url + " class='img'/></div><div class='restaurant-info'><div class='restaurant-title'>" + match[i].title + "</div><div class='location'><div class='restaurant-address'><i class='fa fa-map-marker' aria-hidden=\'true\'></i>" + match[i].location.adress + "</div><div class='restaurant-city'> " + match[i].location.city + "</div></div><div class='restaurant-description'>" + match[i].details.en.shortdescription + "</div></div></li><br>")
 
 									console.log (match[i].trcid)
 								}
