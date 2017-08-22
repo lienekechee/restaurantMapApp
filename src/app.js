@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const session = require('express-session')
 const Sequelize = require('sequelize')
+const bcrypt = require('bcrypt')
 
 var Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
@@ -108,12 +109,16 @@ app.post('/login', (req, res) => {
             }
         })
         .then(user => {
-            if (user !== null && password === user.password) {
-                req.session.user = user;
-                res.redirect('/profile');
-            } else {
-                res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-            }
+
+            bcrypt.compare(password, user.password, function(err, result) {
+                if (err !== undefined) {
+                    console.log(err);
+                    res.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+                } else {
+                    req.session.user = user;
+                    res.redirect('/profile');
+                }
+            })
         })
         .catch(error => {
             console.error(error)
@@ -166,14 +171,26 @@ app.get('/registerform', (req, res) => {
 
 app.post('/register', (req, res) => {
 
-    User.create({
-            username: req.body.usernameNew,
-            email: req.body.emailNew,
-            password: req.body.passwordNew
-        })
-        .then(function() {
-            res.redirect('/')
-        })
+    const password = req.body.passwordNew
+
+    bcrypt.hash(password, 8, function(err, hash) {
+        if (err !== undefined) {
+            console.log(err)
+        } else {
+            User.create({
+                    username: req.body.usernameNew,
+                    email: req.body.emailNew,
+                    password: hash
+                })
+                .then(function() {
+                    res.redirect('/')
+                }).catch(err => {
+                    console.error(err)
+                })
+        }
+    })
+
+
 })
 
 //. GET REQUEST (NAVIGATE TO FEED)
@@ -300,7 +317,10 @@ app.post('/restaurantViaLink', (req, res) => {
 
 
 //. GET REQUEST (GET RESTAURANT PROFILE INCLUDING MAP, INFO/MEDIA, RATING, REVIEWS, & CREATE REVIEW)
-
+// two main things need to happen here: 
+//a) read and send data from the json ; 
+//b) query the database to find the review for that restaurant
+// the database is queried with the TRCID value passed on by the restaurant link clicked by the user
 
 app.get('/restaurant/:trcid', (req, res) => {
 
@@ -308,37 +328,71 @@ app.get('/restaurant/:trcid', (req, res) => {
     const trcid = req.params.trcid
     console.log(trcid)
 
-    fs.readFileAsync("../public/restaurantDataAMS.json", (err, data) => {
-        if (err) {
-            throw err
+    Review.findAll({
+        where: {
+            restaurantId: trcid
         }
-        var restaurants = JSON.parse(data)
+    }).then(reviews => {
 
-        for (i = 0; i < restaurants.length; i++) {
-            if (restaurants[i].trcid === trcid) {
-                console.log(restaurants[i])
+    console.log("###all the reviews!" + reviews) 
 
-                    }}
-                })
-            .then(restaurant =>{
+    fs.readFileAsync("../public/restaurantDataAMS.json")
 
-                console.log(restaurant)
-                Review.findAll({
-                    where: {
-                        restaurantId: trcid
-                    }
-                })
+            .then(data => {
 
-                .then(reviews => {
-                    console.log(restaurant)
-                    console.log(reviews)
-                    res.render('restaurant', {
-                        restaurant: restaurant,
-                        reviews: reviews
-                    });
-                })
+        console.log('Parsed data ' + JSON.parse(data))
+        return JSON.parse(data);
             })
-        });
+            .then(restaurants => {
+
+                for (i = 0; i < restaurants.length; i++) {
+                    if (restaurants[i].trcid == trcid) {
+                        console.log(restaurants[i])
+                        return restaurants[i];
+                    }
+                }
+            })
+            .then(restaurant => {
+                res.render('restaurant', {
+                    restaurant: restaurant,
+                    reviews: reviews
+                })
+            }).catch(err => {
+                console.error(err)
+            });
+        })
+})
+
+// fs.readFileAsync(, (data) => {
+
+//     var restaurants = JSON.parse(data)
+
+//     for (i = 0; i < restaurants.length; i++) {
+//         if (restaurants[i].trcid == trcid) {
+//             console.log(restaurants[i].trcid)
+//             console.log(restaurants[i])
+
+//                 }}
+//             })
+//         .then(restaurant =>{
+
+//             console.log(restaurant)
+//             Review.findAll({
+//                 where: {
+//                     restaurantId: trcid
+//                 }
+//             })
+
+//             .then(reviews => {
+//                 console.log(restaurant)
+//                 console.log(reviews)
+//                 res.render('restaurant', {
+//                     restaurant: restaurant,
+//                     reviews: reviews
+//                 });
+//             })
+//         })
+//     });
 
 
 
