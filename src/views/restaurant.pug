@@ -17,6 +17,7 @@ html
 
 	//- body
 	body(bgcolor='#f5eee1')
+		
 		//- navigation
 		#nav
 			if user
@@ -33,27 +34,42 @@ html
 					a(href='/') Login
 					a(href='logo' style='float: left', margin-left='300px') ø
 		
-		//- restaurant map		
-		#container1
-			#map(data-long=`${restaurant.location.longitude}` data-lat=`${restaurant.location.latitude}`)
 
-		//- restaurant title
-		#container2
-			h2 #{restaurant.title}
+		//- restaurant map	
+		#container-extra
+			#container-map
+				#map(data-long=`${restaurant.location.longitude}` data-lat=`${restaurant.location.latitude}`)
 
-		#container3
-			//- comment form
-			form(name='reviews', action='/writeReview', method='POST')
-				textarea(type='text', name='reviewBody', placeholder='Write a review...')
-				input(type='hidden', name='restaurantId', value=`${restaurant.trcid}`)
-				input(type='hidden', name='restaurantName', value=`${restaurant.title}`)
-				input(type='submit')
+			//- restaurant title
+			#container-info2
+				.restaurant-card2
+					.restaurant-photo2
+						img(src='#{restaurant.media[0].url}')
+					.restaurant-info2
+						.restaurant-title2 #{restaurant.title} 
+						.location2
+							.restaurant-address2 
+								i(class=fa fa-map-marker aria-hidden=true) #{restaurant.location.adress} 
+							.restaurant-city2 #{restaurant.location.city}
+						.restaurant-description2 #{restaurant.details.en.shortdescription}
 
-			h2 All Reviews
-				each review in reviews
-					p= review.body
-          
 
+			//- reviews
+			#container-review
+				//- comment form
+				form(name='reviews', action='/writeReview', method='POST')
+					textarea(type='text', name='review', placeholder='Write a review...')
+					input(type='hidden', name='restaurantId', value=`${restaurant.tcrId}`)
+					input(type='hidden', name='restaurantName', value=`${restaurant.title}`)
+					input(type='submit')
+
+				//- reviews
+				h2 All Reviews
+					each review in reviews
+						p #{review.body}
+			 
+
+		//- script
 		script.
 			console.log(long);
 			console.log(long);

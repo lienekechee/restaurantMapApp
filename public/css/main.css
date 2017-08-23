@@ -3,6 +3,11 @@
 
 /* ----- General -------------------------------------------------------------- */
 
+body {
+    margin: 20px;
+}
+
+
 
 /* ----- Media Queries--------------------------------------------------------- */
 
@@ -35,8 +40,6 @@
 
 
 
-
-
 /* ----- Fonts -------------------------------------------------------------- */
 
 h1 h2 h3 h4 h5 h6 {
@@ -50,8 +53,6 @@ h1 {
 h2 {
     font-family: 'Lora', serif;
 }
-
-
 
 
 
@@ -69,6 +70,7 @@ h2 {
 
 
 #nav {
+    z-index: 10;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -100,6 +102,7 @@ h2 {
 .topnav .icon {
     display: none;
 }
+
 
 
 
@@ -196,6 +199,7 @@ h2 {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 
 
 
@@ -349,6 +353,7 @@ input[type='submit'] {
 
 
 
+
 /* ----- Feed ---------------------------------------------------------------- */
 
 
@@ -416,6 +421,7 @@ input[name=searchrestaurants] {
     width: 100%;
     height: 600px;
 }
+
 
 
 
@@ -508,10 +514,11 @@ form#restaurantLink {
     font-family: 'PT Sans', sans-serif;
     font-size: 14px;
     color: #bbb;
+    float: left;
 }
 
 .restaurant-city {
-    display: block; 
+    display: block;
     float: left;
     font-family: 'PT Sans', sans-serif;
     font-size: 14px;
@@ -530,27 +537,126 @@ form#restaurantLink {
 
 
 
+
 /* ----- Restaurant/id ---------------------------------------------------------------- */
 
-#map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
+#container-extra{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#container-map {
+    height: 400px;
     width: 100%;
-    height: 40%;
+}
+
+#map {
+    position: relative;
+    top: 0%;
+    left: auto;
+    width: 100%;
+    height: 100%;
     float: left;
     display: block;
 }
 
-#container-info {
+#container-info2 {
     display: block;
+    float: left;
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+}
+
+.restaurant-card2 {
+    width: 100%;
+    height: 100%;
+    display: block; 
+    background-color: #fff;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.restaurant-photo2 {
+    display: block;
+    float: left;
+    width: 30%;
+    height: 100%;
+    /*margin: 0 30px 0px 0;*/
+    margin: 20px;
+    background-color: none;
+    overflow: hidden;
+    border: 1px, solid, #000;
+}
+
+.restaurant-photo2.img {
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border: 10px, solid, #000;
+}
+
+.restaurant-info2 {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.restaurant-title2 {
+    width: 100%;
+    margin-top: 20px;
+    display: block;
+    float: left;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 32px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.fa fa-map-marker {
+    color: #bbb;
+}
+
+.restaurant-location2 {
+    margin-top: 20px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.restaurant-address2 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    color: #bbb;
     float: left;
 }
 
+.restaurant-city2 {
+    display: block;
+    float: left;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    color: #bbb;
+}
 
+.restaurant-description2 {
+    margin-top: 16px;
+    width: 100%;
+    display: block;
+    float: left;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    color: #000;
+}
 
-
-
+#container-review {
+    display: block;
+    float: left;
+}
 
 
 
