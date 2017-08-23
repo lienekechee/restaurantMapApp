@@ -56,18 +56,25 @@ html
 
 			//- reviews
 			#container-review
+
+				.divider
+				h2 Write a Review 
+
 				//- comment form
 				form(name='reviews', action='/writeReview', method='POST')
 					textarea(type='text', name='review', placeholder='Write a review...')
-					input(type='hidden', name='restaurantId', value=`${restaurant.tcrId}`)
+					input(type='hidden', name='restaurantId', value=`${restaurant.trcid}`)
 					input(type='hidden', name='restaurantName', value=`${restaurant.title}`)
 					input(type='submit')
 
-				//- reviews
+			//- reviews
+			#container-all-reviews
+				
+				.divider
 				h2 All Reviews
 					each review in reviews
 						p #{review.body}
-			 
+		 
 
 		//- script
 		script.
