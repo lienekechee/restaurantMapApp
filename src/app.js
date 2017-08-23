@@ -207,7 +207,7 @@ app.get('/feed', (req, res) => {
 
             var restaurants = JSON.parse(data)
 
-            res.render('feed', { restaurants: restaurants })
+            res.render('feed', { restaurants: restaurants, user:user })
         })
     } else {
         res.redirect('/?message=' + encodeURIComponent("Please log in!"));
