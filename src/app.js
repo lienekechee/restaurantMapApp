@@ -264,12 +264,12 @@ app.get('/getrestaurants', (req, res) => {
             throw err
         }
 
-            const restaurants = JSON.parse(data)
+        const restaurants = JSON.parse(data)
 
-            const searchrestaurants = req.query.searchrestaurants;
-                console.log(searchrestaurants);
+        const searchrestaurants = req.query.searchrestaurants;
+        console.log(searchrestaurants);
 
-            var matchingRestaurants = []
+        var matchingRestaurants = []
 
         if (req.query.searchrestaurants == "") {
             matchingRestaurants == []
@@ -288,8 +288,8 @@ app.get('/getrestaurants', (req, res) => {
             }
         }
 
-        res.send({ 
-            matchingRestaurants: matchingRestaurants 
+        res.send({
+            matchingRestaurants: matchingRestaurants
         })
 
     });
@@ -302,7 +302,7 @@ app.get('/getrestaurants', (req, res) => {
 app.post('/restaurantViaLink', (req, res) => {
 
     const trcid = req.body.restaurantLink
-        console.log(trcid)
+    console.log(trcid)
     const user = req.session.user
 
     fs.readFileAsync("../public/restaurantDataAMS.json", (err, data) => {
@@ -338,14 +338,17 @@ app.post('/restaurantViaLink', (req, res) => {
 app.get('/restaurant/:trcid', (req, res) => {
 
     const user = req.session.user
-        console.log(user)
+  
     const trcid = req.params.trcid
-        console.log(trcid)
+
 
     Review.findAll({
         where: {
             restaurantId: trcid
-        }
+        },
+        include: [{
+            model: User
+        }]
     }).then(reviews => {
 
         console.log("###all the reviews!" + reviews)
@@ -369,7 +372,8 @@ app.get('/restaurant/:trcid', (req, res) => {
             .then(restaurant => {
                 res.render('restaurant', {
                     restaurant: restaurant,
-                    reviews: reviews
+                    reviews: reviews,
+                    user:user
                 })
             }).catch(err => {
                 console.error(err)
@@ -382,23 +386,28 @@ app.get('/restaurant/:trcid', (req, res) => {
 //. POST REQUEST (CREATE A REVIEW)
 
 app.post('/writeReview', (req, res) => {
-    const user = req.session.user
-    const trcid = req.body.restaurantId
+        const user = req.session.user
+        const trcid = req.body.restaurantId
 
-
-    User.findOne({
-        where: {
-            id: user.id
+        if (user) {
+            User.findOne({
+                where: {
+                    id: user.id
+                }
+            }).then(user => {
+                return user.createReview({
+                    restaurantName: req.body.restaurantName,
+                    restaurantId: trcid,
+                    body: req.body.review
+                })
+            })
+            res.redirect(`/restaurant/${trcid}`)
+            
+        }else {
+    res.redirect('/?message=' + encodeURIComponent("Please log in!"))
         }
-    }).then(user => {
-        return user.createReview({
-            restaurantName: req.body.restaurantName,
-            restaurantId: req.body.restaurantId,
-            body: req.body.reviewBody
-        })
-    })
-})
 
+});
 
 //. GET REQUEST (LOG OUT)
 
