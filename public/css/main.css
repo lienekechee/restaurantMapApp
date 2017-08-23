@@ -9,6 +9,7 @@ body {
 
 
 
+
 /* ----- Media Queries--------------------------------------------------------- */
 
 @media screen and (max-width: 600px) {
@@ -40,6 +41,7 @@ body {
 
 
 
+
 /* ----- Fonts -------------------------------------------------------------- */
 
 h1 h2 h3 h4 h5 h6 {
@@ -53,6 +55,7 @@ h1 {
 h2 {
     font-family: 'Lora', serif;
 }
+
 
 
 
@@ -102,6 +105,7 @@ h2 {
 .topnav .icon {
     display: none;
 }
+
 
 
 
@@ -199,10 +203,6 @@ h2 {
     margin: 4px 2px;
     cursor: pointer;
 }
-
-
-
-
 
 
 
@@ -354,6 +354,7 @@ input[type='submit'] {
 
 
 
+
 /* ----- Feed ---------------------------------------------------------------- */
 
 
@@ -421,6 +422,7 @@ input[name=searchrestaurants] {
     width: 100%;
     height: 600px;
 }
+
 
 
 
@@ -538,9 +540,10 @@ form#restaurantLink {
 
 
 
+
 /* ----- Restaurant/id ---------------------------------------------------------------- */
 
-#container-extra{
+#container-extra {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -572,7 +575,7 @@ form#restaurantLink {
 .restaurant-card2 {
     width: 100%;
     height: 100%;
-    display: block; 
+    display: block;
     background-color: #fff;
     border-radius: 3px;
     margin-left: auto;
@@ -656,7 +659,121 @@ form#restaurantLink {
 #container-review {
     display: block;
     float: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 210px;
+    background-color: #fff;
 }
+
+#container-review h2 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px;
+    display: block;
+    float: left;
+    width: 80%;
+    margin-left: 80px;
+    margin-bottom: 20px;
+
+    /*color: #bbb;*/
+}
+
+#container-review textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 60px;
+    border: 2px solid #f0f0f0;
+    border-radius: 3px;
+}
+
+#container-review textarea p {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+form[name='reviews'] {
+    width: 90%;
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+}
+
+textarea[type='text'],
+select {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    margin: 5px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-top: 12px;
+}
+
+container-review,
+input[type='submit'] {
+    font-family: 'PT Sans', sans-serif;
+    margin: 15px 0px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 3px;
+    width: 200px;
+    height: 40px;
+    float: right;
+}
+
+container-review .button {
+    font-weight: 300;
+    margin-top: 20px;
+    margin-right: 0;
+    width: 100%;
+    display: block;
+    right: 0;
+    color: #a3a3a3;
+    text-decoration: none;
+}
+
+#container-all-reviews {
+    display: block;
+    float: left;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+
+#container-all-reviews h2 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px;
+    display: block;
+    float: left;
+    width: 80%;
+    margin-left: 80px;
+    margin-bottom: 20px;
+
+    /*color: #bbb;*/
+}
+
+.divider {
+    width: 90%;
+    height: 2px;
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 2px solid #151920;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 1px;
+
+}
+
 
 
 
