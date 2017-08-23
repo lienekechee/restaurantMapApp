@@ -161,13 +161,13 @@ app.get('/profile', (req, res) => {
     })
 });
 
-//. GET REQUEST (REGISTER FORM)
+//4. GET REQUEST (REGISTER FORM)
 
 app.get('/registerform', (req, res) => {
     res.render('register')
 })
 
-//. POST REQUEST (CREATE PROFILE INCLUDING SEARCH FUNCTION, OWN REVIEWS, PERSONAL INFO, LOCATION?)
+//5. POST REQUEST (CREATE PROFILE INCLUDING SEARCH FUNCTION, OWN REVIEWS, PERSONAL INFO, LOCATION?)
 
 app.post('/register', (req, res) => {
 
@@ -193,26 +193,33 @@ app.post('/register', (req, res) => {
 
 })
 
-//. GET REQUEST (NAVIGATE TO FEED)
+//6. GET REQUEST (NAVIGATE TO FEED)
 
 app.get('/feed', (req, res) => {
 
-    fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
-        if (err) {
-            throw err;
-        }
+    const user = req.session.user
 
-        var restaurants = JSON.parse(data)
+    if (user) {
+        fs.readFile('../public/restaurantDataAMS.json', (err, data) => {
+            if (err) {
+                throw err;
+            }
 
-        res.render('feed', { restaurants: restaurants })
-    })
+            var restaurants = JSON.parse(data)
+
+            res.render('feed', { restaurants: restaurants })
+        })
+    } else {
+        res.redirect('/?message=' + encodeURIComponent("Please log in!"));
+    }
+
 })
 
 
-//. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
-// here we get the restaurant data from the ajax request.
-// then we iterate through the data set to find a match between data[i].title
-// and req.body.search
+//7. POST REQUEST (SEARCH JSON FOR RESTAURANTS)
+//a. get the restaurant data from the ajax request (search).
+//b. iterate through the JSON file to find a match between data[i].title and req.body.searchrestaurant
+//c. pass on 
 
 app.post('/findrestaurants', (req, res) => {
 
@@ -228,15 +235,19 @@ app.post('/findrestaurants', (req, res) => {
         var restaurants = JSON.parse(data)
         // console.log(restaurants)
 
-        for (i = 0; i < restaurants.length; i++) {
+        if (user) {
+            for (i = 0; i < restaurants.length; i++) {
 
-            if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
-                console.log(restaurants[i].title)
+                if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
+                    console.log(restaurants[i].title)
 
-                res.render('feed', { restaurant: restaurant[i].title })
-                //pass on result of specific restaurant to feed page.
+                    res.render('feed', { restaurant: restaurant[i].title })
+                    //pass on result of specific restaurant to feed page.
+                }
+
             }
-
+        } else {
+            res.redirect('/?message=' + encodeURIComponent("Please log in!"));
         }
     })
 
@@ -253,12 +264,12 @@ app.get('/getrestaurants', (req, res) => {
             throw err
         }
 
-        var restaurants = JSON.parse(data)
+            const restaurants = JSON.parse(data)
 
-        var searchrestaurants = req.query.searchrestaurants;
-        console.log(searchrestaurants);
+            const searchrestaurants = req.query.searchrestaurants;
+                console.log(searchrestaurants);
 
-        var matchingRestaurants = []
+            var matchingRestaurants = []
 
         if (req.query.searchrestaurants == "") {
             matchingRestaurants == []
@@ -267,7 +278,7 @@ app.get('/getrestaurants', (req, res) => {
 
         //.toLowerCase employed for both input and parsedData keys to creat case-insensitivity.
         else {
-            for (var i = 0; i < restaurants.length; i++) {
+            for (let i = 0; i < restaurants.length; i++) {
                 if (restaurants[i].title.toLowerCase().indexOf(searchrestaurants.toLowerCase()) !== -1 || restaurants[i].details.en.shortdescription.toLowerCase().indexOf(searchrestaurants.toLowerCase()) !== -1) {
                     matchingRestaurants.push(restaurants[i])
 
@@ -277,7 +288,9 @@ app.get('/getrestaurants', (req, res) => {
             }
         }
 
-        res.send({ matchingRestaurants: matchingRestaurants })
+        res.send({ 
+            matchingRestaurants: matchingRestaurants 
+        })
 
     });
 })
@@ -289,7 +302,7 @@ app.get('/getrestaurants', (req, res) => {
 app.post('/restaurantViaLink', (req, res) => {
 
     const trcid = req.body.restaurantLink
-    console.log(trcid)
+        console.log(trcid)
     const user = req.session.user
 
     fs.readFileAsync("../public/restaurantDataAMS.json", (err, data) => {
@@ -325,8 +338,9 @@ app.post('/restaurantViaLink', (req, res) => {
 app.get('/restaurant/:trcid', (req, res) => {
 
     const user = req.session.user
+        console.log(user)
     const trcid = req.params.trcid
-    console.log(trcid)
+        console.log(trcid)
 
     Review.findAll({
         where: {
@@ -334,14 +348,14 @@ app.get('/restaurant/:trcid', (req, res) => {
         }
     }).then(reviews => {
 
-    console.log("###all the reviews!" + reviews) 
+        console.log("###all the reviews!" + reviews)
 
-    fs.readFileAsync("../public/restaurantDataAMS.json")
+        fs.readFileAsync("../public/restaurantDataAMS.json")
 
             .then(data => {
 
-        console.log('Parsed data ' + JSON.parse(data))
-        return JSON.parse(data);
+                console.log('Parsed data ' + JSON.parse(data))
+                return JSON.parse(data);
             })
             .then(restaurants => {
 
@@ -360,43 +374,8 @@ app.get('/restaurant/:trcid', (req, res) => {
             }).catch(err => {
                 console.error(err)
             });
-        })
+    })
 })
-
-// fs.readFileAsync(, (data) => {
-
-//     var restaurants = JSON.parse(data)
-
-//     for (i = 0; i < restaurants.length; i++) {
-//         if (restaurants[i].trcid == trcid) {
-//             console.log(restaurants[i].trcid)
-//             console.log(restaurants[i])
-
-//                 }}
-//             })
-//         .then(restaurant =>{
-
-//             console.log(restaurant)
-//             Review.findAll({
-//                 where: {
-//                     restaurantId: trcid
-//                 }
-//             })
-
-//             .then(reviews => {
-//                 console.log(restaurant)
-//                 console.log(reviews)
-//                 res.render('restaurant', {
-//                     restaurant: restaurant,
-//                     reviews: reviews
-//                 });
-//             })
-//         })
-//     });
-
-
-
-
 
 
 
