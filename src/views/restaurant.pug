@@ -44,7 +44,7 @@ html
 			#container-info2
 				.restaurant-card2
 					.restaurant-photo2
-						img(src='#{restaurant.media[0].url}')
+						img(src= `${restaurant.media[0].url}`)
 					.restaurant-info2
 						.restaurant-title2 #{restaurant.title} 
 						.location2
@@ -52,7 +52,6 @@ html
 								i(class=fa fa-map-marker aria-hidden=true) #{restaurant.location.adress} 
 							.restaurant-city2 #{restaurant.location.city}
 						.restaurant-description2 #{restaurant.details.en.shortdescription}
-
 
 			//- reviews
 			#container-review
