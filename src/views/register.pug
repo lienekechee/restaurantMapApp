@@ -2,11 +2,12 @@ doctype html
 html
 	head
 		
+		link(href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet")
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		
 		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
 		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
@@ -37,12 +38,12 @@ html
 			form(name='form', action='/register', method='POST')
 				input(type='text', name='usernameNew', placeholder='Your username...', required) 
 				input(type='email', name='emailNew', placeholder='Your email...', required)
-				input(type='text', name='passwordNew', placeholder='Your password...', required)
+				input(type='password', name='passwordNew', placeholder='Your password...', required)
+				input(type='submit', name='register' value='Register')
 
-				input(type='submit', value='Register')
-
-			a(class='button' href='/login') Or login?
+			a(class='loginbutton' href='/') Or login?
 
 		//- scripts 
+		script(type='text/javascript' src='/js/script.js')
 		
 

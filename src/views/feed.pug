@@ -3,12 +3,13 @@ html
 
 	head
 
+		link(href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet")
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+
 		script(src="https://use.fontawesome.com/cc4cabd0ce.js")
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		
 		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
 		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
@@ -30,13 +31,13 @@ html
 					a(href='/logout') Logout
 					a(href='/profile') Profile
 					a(href='/feed') Search Restaurant
-					a(href='logo' style='float: left', margin-left='300px') ø
+					//- a(href='logo' style='float: left', margin-left='300px') ø
 					
 			else
 				#myTopnav(class='topnav')
 					a(href='javascript:void(0);' style='font-size:15px;' class='icon' onclick='myFunction()') &#9776 
 					a(href='/') Login
-					a(href='logo' style='float: left', margin-left='300px') ø
+					//- a(href='logo' style='float: left', margin-left='300px') ø
 
 
 		//- search bar in map  
@@ -73,4 +74,6 @@ html
 				});
 
 
+		//- script link		//- script link
+		script(type='text/javascript' src='/js/jquery.js')
 		

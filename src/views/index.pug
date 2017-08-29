@@ -5,14 +5,14 @@ html
 		link(href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet")
 		link(href='https://fonts.googleapis.com/css?family=Lora|PT+Sans' rel='stylesheet')
 		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans')
+			
 		link(rel='stylesheet', type='text/css', href='/css/reset.css')
 		link(rel='stylesheet', type='text/css', href='/css/main.css')
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		
+
 		script(src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js')
 		link(href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet')
 		script(src='https://code.jquery.com/jquery-3.2.1.min.js')
-		script(type='text/javascript' src='/js/script.js')
+		
 
 
 	//- body
@@ -40,10 +40,9 @@ html
 			form(name='loginform', action='/login', method='POST')
 				input(type='text', name='email', placeholder='Email...', required) 
 				input(type='password', name='password', placeholder='Password...', required)
-				
-				input(type='submit', name='submit', value='Login')
+				input(type='submit', name='login', value='Login')
 
-			a(class='button' href='/registerform') Or register?
+			a(class='loginbutton' href='/registerform') Or register?
 
 
 		//- script link

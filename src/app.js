@@ -20,7 +20,7 @@ app.set('view engine', 'pug')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
-console.log(__dirname)
+
 
 app.use(session({
     secret: "Your secret key",
@@ -87,7 +87,6 @@ app.get('/', (req, res) => {
         }
         // console.log (data)
         var restaurants = JSON.parse(data)
-        console.log(restaurants[0])
 
         res.render('index', {
             message: req.query.message,
@@ -152,7 +151,7 @@ app.get('/profile', (req, res) => {
                 .then(reviews => {
                     res.render('profile', {
                         user: user,
-                        reviews: reviews
+                        // reviews: reviews
                     })
                 })
         } else {
@@ -239,7 +238,6 @@ app.post('/findrestaurants', (req, res) => {
             for (i = 0; i < restaurants.length; i++) {
 
                 if (search.toLowerCase() === restaurants[i].title.toLowerCase()) {
-                    console.log(restaurants[i].title)
 
                     res.render('feed', { restaurant: restaurant[i].title })
                     //pass on result of specific restaurant to feed page.
@@ -267,7 +265,6 @@ app.get('/getrestaurants', (req, res) => {
         const restaurants = JSON.parse(data)
 
         const searchrestaurants = req.query.searchrestaurants;
-        console.log(searchrestaurants);
 
         var matchingRestaurants = []
 
@@ -302,7 +299,6 @@ app.get('/getrestaurants', (req, res) => {
 app.post('/restaurantViaLink', (req, res) => {
 
     const trcid = req.body.restaurantLink
-    console.log(trcid)
     const user = req.session.user
 
     fs.readFileAsync("../public/restaurantDataAMS.json", (err, data) => {
@@ -321,7 +317,6 @@ app.post('/restaurantViaLink', (req, res) => {
 
 
     }).then(restaurant => {
-        console.log(restaurant)
         res.redirect(`/restaurant/${restaurant.trcid}`)
     })
 
@@ -338,9 +333,7 @@ app.post('/restaurantViaLink', (req, res) => {
 app.get('/restaurant/:trcid', (req, res) => {
 
     const user = req.session.user
-  
     const trcid = req.params.trcid
-
 
     Review.findAll({
         where: {
@@ -350,8 +343,6 @@ app.get('/restaurant/:trcid', (req, res) => {
             model: User
         }]
     }).then(reviews => {
-
-        console.log("###all the reviews!" + reviews)
 
         fs.readFileAsync("../public/restaurantDataAMS.json")
 
@@ -364,7 +355,6 @@ app.get('/restaurant/:trcid', (req, res) => {
 
                 for (i = 0; i < restaurants.length; i++) {
                     if (restaurants[i].trcid == trcid) {
-                        console.log(restaurants[i])
                         return restaurants[i];
                     }
                 }
