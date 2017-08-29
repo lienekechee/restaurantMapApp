@@ -10,7 +10,10 @@ const fs = Promise.promisifyAll(require('fs'));
 
 const database = new Sequelize('restaurantmapappdb', process.env.POSTGRES_USER, null, {
     host: 'localhost',
-    dialect: 'postgres'
+    dialect: 'postgres',
+    define: {
+        timestamps:false
+    }
 });
 
 const app = express()
@@ -43,8 +46,6 @@ var User = database.define('users', {
     password: {
         type: Sequelize.STRING,
     }
-}, {
-    timestamps: false
 });
 
 var Review = database.define('reviews', {
@@ -57,9 +58,6 @@ var Review = database.define('reviews', {
     body: {
         type: Sequelize.TEXT
     }
-}, {
-    timestamps: false
-
 });
 
 
