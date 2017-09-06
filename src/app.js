@@ -186,8 +186,6 @@ app.post('/register', (req, res) => {
                 })
         }
     })
-
-
 })
 
 //6. GET REQUEST (NAVIGATE TO FEED)
